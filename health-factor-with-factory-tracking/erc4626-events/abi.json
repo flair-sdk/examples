@@ -1,0 +1,59 @@
+[
+  {
+    "name": "Deposit",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "sender",
+        "indexed": true,
+        "type": "address"
+      },
+      {
+        "name": "owner",
+        "indexed": true,
+        "type": "address"
+      },
+      {
+        "name": "assets",
+        "indexed": false,
+        "type": "uint256"
+      },
+      {
+        "name": "shares",
+        "indexed": false,
+        "type": "uint256"
+      }
+    ]
+  },
+  {
+    "name": "Withdraw",
+    "type": "event",
+    "inputs": [
+      {
+        "name": "sender",
+        "indexed": true,
+        "type": "address"
+      },
+      {
+        "name": "receiver",
+        "indexed": true,
+        "type": "address"
+      },
+      {
+        "name": "owner",
+        "indexed": true,
+        "type": "address"
+      },
+      {
+        "name": "assets",
+        "indexed": false,
+        "type": "uint256"
+      },
+      {
+        "name": "shares",
+        "indexed": false,
+        "type": "uint256"
+      }
+    ]
+  }
+]

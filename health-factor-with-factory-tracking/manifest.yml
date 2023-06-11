@@ -1,0 +1,65 @@
+manifest: 1.0.0
+
+namespaces:
+  - id: fuji-finance
+
+filterGroups:
+  - id: default
+    updateStrategy: preserve
+    description: |
+      This group contains all factories and vaults addresses that are being tracked.
+      Factories will be imported from CSV, then newly deployed pools will be added
+      using custom processor below (factory-tracker).
+    addresses:
+      - fromFile: ./factories.csv
+
+indexers:
+  - chainId: 10
+    enabled: true
+    ingestionFilterGroup: default
+    processingFilterGroup: default
+    sources:
+      - endpoint: wss://chain-10.rpc.internal.flair.build
+      - endpoint: https://chain-10.rpc.internal.flair.build
+
+  - chainId: 100
+    enabled: true
+    ingestionFilterGroup: default
+    processingFilterGroup: default
+    sources:
+      - endpoint: wss://chain-100.rpc.internal.flair.build
+      - endpoint: https://chain-100.rpc.internal.flair.build
+
+  - chainId: 137
+    enabled: true
+    ingestionFilterGroup: default
+    processingFilterGroup: default
+    sources:
+      - endpoint: wss://chain-137.rpc.internal.flair.build
+      - endpoint: https://chain-137.rpc.internal.flair.build
+
+  - chainId: 42161
+    enabled: true
+    ingestionFilterGroup: default
+    processingFilterGroup: default
+    sources:
+      - endpoint: wss://chain-42161.rpc.internal.flair.build
+      - endpoint: https://chain-42161.rpc.internal.flair.build
+
+processors:
+  - id: factory-tracker
+    handler: './factory-tracker/handler.js'
+    abi: './factory-tracker/abi.json'
+
+  - id: erc4626-events
+    handler: './erc4626-events/handler.js'
+    abi: './erc4626-events/abi.json'
+
+jobs:
+  - schedule: rate(15 minutes)
+    input_sql: './position-health/input.sql'
+    enricher: calculate-position-health
+
+enrichers:
+  - id: calculate-position-health
+    handler: './position-health/handler.js'

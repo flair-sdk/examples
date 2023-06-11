@@ -1,0 +1,79 @@
+manifest: 1.0.0
+defaultLogLevel: DEBUG
+
+namespaces:
+  - id: lifi
+
+filterGroups:
+  - id: default
+    updateStrategy: preserve
+    description: This default filter group is used for all indexers to capture
+      contract addresses you care about.
+    addresses:
+      - fromFile: ./contracts.csv
+
+indexers:
+  - chainId: 1 # Mainnet
+    enabled: true
+    ingestionFilterGroup: default
+    processingFilterGroup: default
+    sources:
+      - endpoint: wss://chain-1.rpc.internal.flair.build
+      - endpoint: https://chain-1.rpc.internal.flair.build
+
+  - chainId: 10 # Optimism
+    enabled: true
+    ingestionFilterGroup: default
+    processingFilterGroup: default
+    sources:
+      - endpoint: wss://chain-10.rpc.internal.flair.build
+      - endpoint: https://chain-10.rpc.internal.flair.build
+
+  - chainId: 56 # Binanace Smart Chain
+    enabled: true
+    ingestionFilterGroup: default
+    processingFilterGroup: default
+    sources:
+      - endpoint: wss://chain-56.rpc.internal.flair.build
+      - endpoint: https://chain-56.rpc.internal.flair.build
+
+  - chainId: 100 # Gnosis
+    enabled: true
+    ingestionFilterGroup: default
+    processingFilterGroup: default
+    sources:
+      - endpoint: wss://chain-100.rpc.internal.flair.build
+      - endpoint: https://chain-100.rpc.internal.flair.build
+
+  - chainId: 137 # Polygon
+    enabled: true
+    ingestionFilterGroup: default
+    processingFilterGroup: default
+    sources:
+      - endpoint: wss://chain-137.rpc.internal.flair.build
+      - endpoint: https://chain-137.rpc.internal.flair.build
+
+  - chainId: 42161 # Arbitrum
+    enabled: true
+    ingestionFilterGroup: default
+    processingFilterGroup: default
+    sources:
+      - endpoint: wss://chain-42161.rpc.internal.flair.build
+      - endpoint: https://chain-42161.rpc.internal.flair.build
+
+  - chainId: 43114 # Avalanche C-Chain
+    enabled: true
+    ingestionFilterGroup: default
+    processingFilterGroup: default
+    sources:
+      - endpoint: wss://chain-43114.rpc.internal.flair.build
+      - endpoint: https://chain-43114.rpc.internal.flair.build
+
+processors:
+  - id: integrator-fee-collection-events
+    abi: integrator-fee-collection-events/abi.json
+    handler: integrator-fee-collection-events/handler.js
+
+  - id: service-fee-collection-events
+    abi: service-fee-collection-events/abi.json
+    handler: service-fee-collection-events/handler.js
