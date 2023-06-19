@@ -1,0 +1,60 @@
+manifest: 1.0.0
+
+defaultLogLevel: DEBUG
+
+namespaces:
+  - id: my-awesome-swapper
+
+filterGroups:
+  - id: topics
+    updateStrategy: replace
+    description: |
+      This static filter group is used for all indexers to capture all relevant events.
+    topics:
+      - fromFile: ./factory-tracker/abi.json
+      - fromFile: ./pools-swaps/abi.json
+
+  - id: addresses
+    updateStrategy: preserve
+    description: |
+      This group will be automatically populated by the factory-tracker as soon as a new pool is created.
+      It is also manually populated from the factories.csv for known factories.
+      This group is used to filter-out irrelevant contracts (other Uniswap-like protocols) which also emit the "topics" above but we don't want to process them.
+      If you want swap of "all" Uniswap-like protocols, you can remove this filter group and use "topics" filter group everywhere. 
+    addresses:
+      - fromFile: ./factories.csv
+
+indexers:
+  - chainId: 1
+    enabled: true
+    sources:
+    - endpoint: wss://chain-1.rpc.internal.flair.build
+    - endpoint: https://chain-1.rpc.internal.flair.build
+    ingestionFilterGroup: topics
+    processingFilterGroup: addresses
+
+  - chainId: 5
+    enabled: true
+    sources:
+    - endpoint: wss://chain-5.rpc.internal.flair.build
+    - endpoint: https://chain-5.rpc.internal.flair.build
+    ingestionFilterGroup: topics
+    processingFilterGroup: addresses
+    
+processors:
+  - id: factory-tracker
+    abi: factory-tracker/abi.json
+    handler: factory-tracker/handler.js
+
+  - id: pools-swaps
+    abi: pools-swaps/abi.json
+    handler: pools-swaps/handler.js
+
+jobs:
+  - schedule: rate(60 minutes)
+    inputSql: './pools-aggregations/input.sql'
+    enricher: pools-aggregations
+
+enrichers:
+  - id: pools-aggregations
+    handler: './pools-aggregations/handler.js'
