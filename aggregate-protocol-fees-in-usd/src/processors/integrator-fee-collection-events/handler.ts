@@ -69,7 +69,7 @@ export async function processEvent(event: EventHandlerInput) {
       // Entity type is used to group entities together.
       // Here we're creating 1 entity per event (Transfer, Borrow, Approval, etc),
       // based on either entityName defined in the ABI JSON or exact event name.
-      entityType: event.parsed.name,
+      entityType: event.parsed.name as string,
 
       // Unique ID for this entity.
       //

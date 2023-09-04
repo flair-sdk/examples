@@ -31,7 +31,7 @@ export async function fetchUsdPrice({
   return null
 }
 
-async function persistToken(chainId: number, tokenAddress: string) {
+export async function persistToken(chainId: number, tokenAddress: string) {
   const token = await database.get({
     entityType: "Token",
     entityId: tokenAddress?.toLowerCase(),
