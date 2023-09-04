@@ -69,4 +69,3 @@ async function persistToken(chainId: number, tokenAddress: string) {
   });
 }
 
-export { fetchUsdPrice, persistToken }
