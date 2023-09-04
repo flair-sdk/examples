@@ -11,7 +11,7 @@ interface FetchUsdPriceParams {
   amount: number
 }
 
-const fetchUsdPrice = async function ({
+export async function fetchUsdPrice({
   event,
   token,
   amount,
