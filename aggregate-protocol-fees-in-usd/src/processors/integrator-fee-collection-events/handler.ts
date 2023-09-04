@@ -17,8 +17,8 @@ interface EventData {
 
 
 const processEvent = async function (event: EventHandlerInput) {
-  const provider = await blockchain.getProvider(event.chainId);
-    const transaction = await provider.cached().getTransaction(event.txHash);
+    const provider = await blockchain.getProvider(event.chainId);
+    const transaction = await provider.cached().getTransactionReceipt(event.txHash);
 
     let eventData: EventData = {
       integrator: '',
@@ -31,7 +31,9 @@ const processEvent = async function (event: EventHandlerInput) {
       to: '',
       inUsd: 0
     };
+  
     const isFeesCollectedEvent = !!event.parsed.args?._integratorFee;
+    
     if (isFeesCollectedEvent) {
       eventData.integrator = event.parsed.args?._integrator;
       eventData.token = event.parsed.args?._token;
@@ -78,7 +80,6 @@ const processEvent = async function (event: EventHandlerInput) {
       // - logIndex also makes sure if such event has happened multiple times in same tx it will be stored separately.
       entityId: `${event.chainId}-${event.txHash}-${event.log.logIndex}`,
 
-      // Horizon helps with chronological ordering of events and handling re-orgs
       // Horizon helps with chronological ordering of events and handling re-orgs
       horizon: event.horizon,
 
