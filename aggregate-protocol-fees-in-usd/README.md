@@ -17,8 +17,8 @@ In this example you learn:
 1️⃣ Clone this repo:
 
 ```bash
-git clone https://github.com/flair-sdk/starter-boilerplate.git my-indexer
-cd my-indexer
+git clone git@github.com:flair-sdk/examples.git my-indexer
+cd aggregate-protocol-fees-in-usd
 ```
 
 <br /> 
