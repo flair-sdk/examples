@@ -30,8 +30,4 @@ indexers:
 processors:
   - id: integrator-fee-collection-events
     abi: src/processors/integrator-fee-collection-events/abi.json
-    handler: src/processors/integrator-fee-collection-events/handler.js
-
-  - id: service-fee-collection-events
-    abi: src/processors/service-fee-collection-events/abi.json
-    handler: src/processors/service-fee-collection-events/handler.js
+    handler: src/processors/integrator-fee-collection-events/handler.ts

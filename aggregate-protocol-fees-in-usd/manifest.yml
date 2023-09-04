@@ -5,7 +5,7 @@ defaultLogLevel: DEBUG
 cluster:
   id: dev
   size: small
-namespace: boilerplate-dev
+namespace: aggregator-protocol-fee-in-usd-example-dev
 
 filterGroups:
   - id: default
@@ -17,17 +17,14 @@ filterGroups:
 
 indexers:
   - chainId: 1
-    enabled: false
+    enabled: true
     ingestionFilterGroup: default
     processingFilterGroup: default
+    sources:
       - endpoint: wss://chain-1.rpc.internal.flair.build
       - endpoint: https://chain-1.rpc.internal.flair.build
 
 processors:
   - id: integrator-fee-collection-events
-    abi: integrator-fee-collection-events/abi.json
-    handler: integrator-fee-collection-events/handler.js
-
-  - id: service-fee-collection-events
-    abi: service-fee-collection-events/abi.json
-    handler: service-fee-collection-events/handler.js
+    abi: src/processors/integrator-fee-collection-events/abi.json
+    handler: src/processors/integrator-fee-collection-events/handler.ts

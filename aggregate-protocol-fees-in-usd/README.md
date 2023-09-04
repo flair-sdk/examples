@@ -56,7 +56,7 @@ pnpm generate-and-deploy
 
 ```bash
 # Index last recent 10,000 blocks of a contract like this:
-pnpm flair backfill --chain 1 --address 0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc -d backward --max-blocks 10000
+pnpm flair backfill --chain 1 --address 0xbD6C7B0d2f68c2b7805d88388319cfB6EcB50eA9 -d backward --max-blocks 10000
 ```
 
 Or you can backfill for a specific block number, if you have certain events you wanna test with:
@@ -100,7 +100,7 @@ query {
       FROM
         entities
       WHERE
-        namespace = 'lifi'
+        namespace = 'aggregator-protocol-fee-in-usd-example-dev'
       ORDER BY horizon DESC
       LIMIT 100
     """
@@ -134,7 +134,7 @@ query {
       FROM
         entities
       WHERE
-        namespace = 'lifi' AND
+        namespace = 'aggregator-protocol-fee-in-usd-example-dev' AND
         (
           entityType = 'GasFeesCollected' OR
           entityType = 'InsuranceFeesCollected'
@@ -177,9 +177,9 @@ query {
       FROM
         entities f
       LEFT JOIN
-        entities t ON t.namespace = 'lifi' AND t.entityType = 'Token' AND t.chainId = f.chainId AND t.tokenAddress = f.token
+        entities t ON t.namespace = 'aggregator-protocol-fee-in-usd-example-dev' AND t.entityType = 'Token' AND t.chainId = f.chainId AND t.tokenAddress = f.token
       WHERE
-        f.namespace = 'lifi' AND
+        f.namespace = 'aggregator-protocol-fee-in-usd-example-dev' AND
         (
           f.entityType = 'GasFeesCollected' OR
           f.entityType = 'InsuranceFeesCollected'
@@ -216,7 +216,7 @@ query {
           FROM
               entities
           WHERE
-              namespace = 'lifi'
+              namespace = 'aggregator-protocol-fee-in-usd-example-dev'
           GROUP BY entityType, chainId
           ORDER BY totalCount DESC
           LIMIT 100
@@ -247,7 +247,7 @@ query {
       FROM
         entities
       WHERE
-        namespace = 'lifi'
+        namespace = 'aggregator-protocol-fee-in-usd-example-dev'
       GROUP BY chainId
       ORDER BY totalFeesInUsd DESC
       LIMIT 100
@@ -278,7 +278,7 @@ query {
       FROM
         entities
       WHERE
-        namespace = 'lifi'
+        namespace = 'aggregator-protocol-fee-in-usd-example-dev'
       GROUP BY chainId, token
       HAVING SUM(feeAmountInUsd) > 0
       ORDER BY totalFeesInUsd DESC
@@ -310,7 +310,7 @@ query {
       FROM
         entities
       WHERE
-        namespace = 'lifi' AND feeAmount is NOT NULL AND feeAmountInUsd IS NULL
+        namespace = 'aggregator-protocol-fee-in-usd-example-dev' AND feeAmount is NOT NULL AND feeAmountInUsd IS NULL
       GROUP BY chainId, token
       ORDER BY totalEvents DESC
       LIMIT 100
