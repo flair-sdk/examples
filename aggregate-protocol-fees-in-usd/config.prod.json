@@ -1,0 +1,16 @@
+{
+  "cluster": "prod",
+  "namespace": "aggregator-protocol-fee-in-usd-example-prod",
+  "indexers": [
+    {
+      "chainId": 1,
+      "enabled": false,
+      "ingestionFilterGroup": "default",
+      "processingFilterGroup": "default",
+      "sources": [
+        "wss://chain-1.rpc.internal.flair.build",
+        "https://chain-1.rpc.internal.flair.build"
+      ]
+    }
+  ]
+}

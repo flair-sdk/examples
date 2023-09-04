@@ -1,0 +1,37 @@
+manifest: 1.2.0
+
+defaultLogLevel: DEBUG
+
+cluster:
+  id: {{ cluster }}
+  size: small
+namespace: {{ namespace }}
+
+filterGroups:
+  - id: default
+    updateStrategy: preserve
+    description: This default filter group is used for all indexers to capture
+      contract addresses you care about.
+    addresses:
+      - fromFile: ./contracts.csv
+
+indexers:
+  {{#indexers}}
+  - chainId: {{chainId}}
+    enabled: {{enabled}}
+    ingestionFilterGroup: {{ingestionFilterGroup}}
+    processingFilterGroup: {{processingFilterGroup}}
+    sources:
+    {{#sources}}
+      - endpoint: {{{.}}}
+    {{/sources}}
+  {{/indexers}}
+
+processors:
+  - id: integrator-fee-collection-events
+    abi: src/processors/integrator-fee-collection-events/abi.json
+    handler: src/processors/integrator-fee-collection-events/handler.js
+
+  - id: service-fee-collection-events
+    abi: src/processors/service-fee-collection-events/abi.json
+    handler: src/processors/service-fee-collection-events/handler.js
