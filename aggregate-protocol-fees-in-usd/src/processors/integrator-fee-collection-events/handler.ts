@@ -101,5 +101,3 @@ export async function processEvent(event: EventHandlerInput) {
 
     return true;
 };
-
-export { processEvent };
