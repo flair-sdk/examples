@@ -4,7 +4,7 @@ import { blockchain, database, EventHandlerInput } from 'flair-sdk';
 import { fetchUsdPrice, persistToken } from '../../functions/common'
 
 
-const processEvent = async function (event: EventHandlerInput) {
+export async function processEvent(event: EventHandlerInput) {
     const provider = await blockchain.getProvider(event.chainId);
     const transaction = await provider.cached().getTransactionReceipt(event.txHash);
 
