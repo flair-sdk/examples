@@ -1,37 +1,87 @@
 # Example: Aggregate protocol fees in USD across multiple chains
 
-This example shows how to track fee colelction events of a DeFi protocol where fees can be any arbitrary ERC20 token. 
+This example shows how to track fee collection events of a DeFi protocol where fees can be any arbitrary ERC20 token. 
 
 In this example you learn:
 * To use [`prices` integration](https://docs.flair.build/advanced/integrations#prices)  to get USD price of any ERC20 token for any block number or timestamp in the past.
 * Track same contract address across all EVM chains at once.
 
-## Main [`manifest.yml`](./manifest.yml)
+## Table of Contents
 
-Contains list of indexing components deployed in your cluster.
+- [🏁 Getting Started](#getting-started)
+- [💎 Examples](#examples)
+- [🤔 FAQ](#faq)
 
-## Processors
+## Getting Started
 
-Each processor is defined to listen for a particular event (log topic) and/or contract address.
+1️⃣ Clone this repo:
 
-### [fee-collection-events](./fee-collection-events)
+```bash
+git clone git@github.com:flair-sdk/examples.git my-indexer
+cd aggregate-protocol-fees-in-usd
+```
 
-Responsible for tracking all FeesWithdrawn, GasFeesCollected, InsuranceFeesCollected.
+<br /> 
+2️⃣ Install packages and authenticate:
 
-Listens to: All events defined in [fee-collection-events/abi.json](./fee-collection-events/abi.json).
-Custom script: [fee-collection-events/handler.js](./fee-collection-events/handler.js)
+```bash
+pnpm i
+pnpm flair auth
+```
 
-## Scheduled Jobs
+<br />
+3️⃣ Set the namespace and config.json:
 
-A scheduled job accepts a SQL as input, retrieves all rows and executes a custom enricher script for each row.
+`config.dev.json` and `config.prod.json` are sample configs for `dev` and `prod` clusters.
 
-### Nothing yet...
+Set a globally unique namespace in each config file (recommended to use `{ORG_NAME}-{ENV}`; e.g `sushiswap-dev` or `sushiswap-prod`) and then run:
 
-_An example of scheduled is: every 10 minutes aggregate total fees collected (the USD price) and store in a simple entity ready to be queried from Frontend dashboard_
+```bash
+# Setting configs for dev testing
+cp config.dev.json config.json
 
-Read more about [scheduled jobs](https://docs.flair.build/advanced/schedules).
+# Or setting it for production
+cp config.prod.json config.json
+```
 
-## SQL Examples
+<br />
+4️⃣ Generate manifest.yml and deploy:
+
+```bash
+pnpm generate-and-deploy
+```
+
+<br />
+5️⃣ Backfill certain contracts or block ranges:
+
+```bash
+# Index last recent 10,000 blocks of a contract like this:
+pnpm flair backfill --chain 1 --address 0xbD6C7B0d2f68c2b7805d88388319cfB6EcB50eA9 -d backward --max-blocks 10000
+```
+
+Or you can backfill for a specific block number, if you have certain events you wanna test with:
+
+```bash
+pnpm flair backfill --chain 1 -b 17998797
+```
+
+Or backfill for the recent data in the last X minutes:
+
+```bash
+pnpm flair backfill --chain 1 --min-timestamp="5 mins ago" -d backward
+```
+
+<br />
+6️⃣ Look at the logs:
+
+```bash
+pnpm flair logs --full -tag Level=warn
+pnpm flair logs --full -tag TransactionHash=0xXXXXX
+pnpm flair logs --full -tag ProcessorId=swap-events
+pnpm flair logs --full -tag ProcessorId=swap-events --watch
+```
+
+## Examples
 
 ### All entities order by latest at top
 
@@ -50,7 +100,7 @@ query {
       FROM
         entities
       WHERE
-        namespace = 'lifi'
+        namespace = 'aggregator-protocol-fee-in-usd-example-dev'
       ORDER BY horizon DESC
       LIMIT 100
     """
@@ -84,7 +134,7 @@ query {
       FROM
         entities
       WHERE
-        namespace = 'lifi' AND
+        namespace = 'aggregator-protocol-fee-in-usd-example-dev' AND
         (
           entityType = 'GasFeesCollected' OR
           entityType = 'InsuranceFeesCollected'
@@ -127,9 +177,9 @@ query {
       FROM
         entities f
       LEFT JOIN
-        entities t ON t.namespace = 'lifi' AND t.entityType = 'Token' AND t.chainId = f.chainId AND t.tokenAddress = f.token
+        entities t ON t.namespace = 'aggregator-protocol-fee-in-usd-example-dev' AND t.entityType = 'Token' AND t.chainId = f.chainId AND t.tokenAddress = f.token
       WHERE
-        f.namespace = 'lifi' AND
+        f.namespace = 'aggregator-protocol-fee-in-usd-example-dev' AND
         (
           f.entityType = 'GasFeesCollected' OR
           f.entityType = 'InsuranceFeesCollected'
@@ -166,7 +216,7 @@ query {
           FROM
               entities
           WHERE
-              namespace = 'lifi'
+              namespace = 'aggregator-protocol-fee-in-usd-example-dev'
           GROUP BY entityType, chainId
           ORDER BY totalCount DESC
           LIMIT 100
@@ -197,7 +247,7 @@ query {
       FROM
         entities
       WHERE
-        namespace = 'lifi'
+        namespace = 'aggregator-protocol-fee-in-usd-example-dev'
       GROUP BY chainId
       ORDER BY totalFeesInUsd DESC
       LIMIT 100
@@ -228,7 +278,7 @@ query {
       FROM
         entities
       WHERE
-        namespace = 'lifi'
+        namespace = 'aggregator-protocol-fee-in-usd-example-dev'
       GROUP BY chainId, token
       HAVING SUM(feeAmountInUsd) > 0
       ORDER BY totalFeesInUsd DESC
@@ -260,7 +310,7 @@ query {
       FROM
         entities
       WHERE
-        namespace = 'lifi' AND feeAmount is NOT NULL AND feeAmountInUsd IS NULL
+        namespace = 'aggregator-protocol-fee-in-usd-example-dev' AND feeAmount is NOT NULL AND feeAmountInUsd IS NULL
       GROUP BY chainId, token
       ORDER BY totalEvents DESC
       LIMIT 100
@@ -273,3 +323,8 @@ query {
   }
 }
 ```
+
+## FAQ
+
+**Q:** How do I enable/disable real-time ingestion for indexer? <br />
+**A:** For each indexer defined in `config.json`, you can enable/disable it via the `enabled: true/false` flag. Remember to run `pnpm deploy` for the changes to apply on the cluster. <br/><br />
