@@ -1,0 +1,12 @@
+# dependencies
+node_modules
+
+# manifest and config
+manifest.yml
+config.json
+
+# dist
+dist
+
+# flair
+.flair

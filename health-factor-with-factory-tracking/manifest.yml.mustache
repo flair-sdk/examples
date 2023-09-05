@@ -3,9 +3,9 @@ manifest: 1.2.0
 defaultLogLevel: DEBUG
 
 cluster:
-  id: dev
+  id: {{ cluster }}
   size: small
-namespace: health-factor-with-factory-tracking-dev
+namespace: {{ namespace }}
 
 filterGroups:
   - id: default
@@ -18,13 +18,16 @@ filterGroups:
       - fromFile: ./factories.csv
 
 indexers:
-  - chainId: 10
-    enabled: true
-    ingestionFilterGroup: default
-    processingFilterGroup: default
+  {{#indexers}}
+  - chainId: {{chainId}}
+    enabled: {{enabled}}
+    ingestionFilterGroup: {{ingestionFilterGroup}}
+    processingFilterGroup: {{processingFilterGroup}}
     sources:
-      - endpoint: wss://chain-10.rpc.internal.flair.build
-      - endpoint: https://chain-10.rpc.internal.flair.build
+    {{#sources}}
+      - endpoint: {{{.}}}
+    {{/sources}}
+  {{/indexers}}
 
 processors:
   - id: factory-tracker
