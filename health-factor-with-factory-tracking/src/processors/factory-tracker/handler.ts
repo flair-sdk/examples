@@ -1,5 +1,6 @@
-exports.processEvent = function (event, callback) {
-  (async () => {
+import { graph, EventHandlerInput } from 'flair-sdk';
+
+export async function processEvent(event: EventHandlerInput) {
     const chainId = event.chainId;
     const vaultAddress = event?.parsed?.args?.vault;
 
@@ -31,7 +32,4 @@ exports.processEvent = function (event, callback) {
     );
 
     return true;
-  })()
-    .then((res) => callback(res, null))
-    .catch((err) => callback(null, err));
 };

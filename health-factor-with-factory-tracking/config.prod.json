@@ -1,0 +1,16 @@
+{
+  "cluster": "prod",
+  "namespace": "health-factor-with-factory-tracking-prod",
+  "indexers": [
+    {
+      "chainId": 10,
+      "enabled": false,
+      "ingestionFilterGroup": "default",
+      "processingFilterGroup": "default",
+      "sources": [
+        "wss://chain-10.rpc.internal.flair.build",
+        "https://chain-10.rpc.internal.flair.build"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,9 @@
-exports.handleInput = function ({ data }, callback) {
-  (async () => {
-    if (!data || !data.owner) {
+import { database, blockchain } from 'flair-sdk';
+
+import { tryCallOrNull } from '../../functions/common';
+
+export async function handleInput({ data }) {
+  if (!data || !data.owner) {
       console.log(
         `Skipping processing item without owner: ${JSON.stringify(data)}`,
       );
@@ -20,7 +23,7 @@ exports.handleInput = function ({ data }, callback) {
 
     const provider = await blockchain.getProvider(data.chainId);
 
-    await db.document.upsertSimpleEntity({
+    await database.upsert({
       entityType: 'PositionHealth',
       entityId:
         `${data.chainId}-${data.contractAddress}-${data.owner}`.toLowerCase(),
@@ -50,18 +53,4 @@ exports.handleInput = function ({ data }, callback) {
     });
 
     return true;
-  })()
-    .then((res) => callback(res, null))
-    .catch((err) => callback(null, err));
 };
-
-async function tryCallOrNull(contract, method, args) {
-  try {
-    return await contract[method](...args);
-  } catch (e) {
-    console.log(
-      `Failed tryCallOrNull: ${e?.message || e?.toString()} ${e.stack}`,
-    );
-    return null;
-  }
-}
