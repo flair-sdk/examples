@@ -4,8 +4,8 @@ Explore real-world usage of Flair indexing primitives for various use-cases.
 
 ### DeFi
 
-* [Calculate "Health Factor" of positions with contract factory tracking](./health-factor-with-factory-tracking/README.md)
 * [Aggregate protocol fees in USD across multiple chains](./aggregate-protocol-fees-in-usd/README.md)
+* [Calculate "Health Factor" of positions with contract factory tracking](./health-factor-with-factory-tracking/README.md)
 * [Index Uniswap v2 swaps with USD price for all addresses](./uniswap-v2-events-from-all-contracts-with-usd-price/README.md)
 
 ## How to deploy?
