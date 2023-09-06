@@ -1,44 +1,41 @@
-exports.processEvent = function (event, callback) {
-  (async () => {
-    const provider = await blockchain.getProvider(event.chainId);
-    const transaction = await provider.cached().getTransaction(event.txHash);
+import { blockchain, database, Entity, EventHandlerInput } from 'flair-sdk';
 
-    const { token0, token1 } = await persistPool(event);
+import {fetchUsdPrice, getISOWeekNumber } from './common';
 
-    await persistEvent(event, transaction, token0, token1);
+export type Pool = Entity<{
+  chainId: number
+  address: string
+  token0: string
+  token1: string
+  name: string
+}>
 
-    return true;
-  })()
-    .then((res) => callback(res, null))
-    .catch((error) => callback(null, error));
-};
-
-async function persistEvent(event, transaction, token0, token1) {
+export async function persistEvent(event: EventHandlerInput, transaction, token0, token1) {
   const { monthBucket, weekBucket, dayBucket, hourBucket } =
     generateTimeBuckets(event.blockTimestamp);
   const [amount0InUsd, amount1InUsd, amount0OutUsd, amount1OutUsd] =
     await Promise.all([
-      calculateFeeInUsd({
+      fetchUsdPrice({
         event,
         token: token0,
-        amount: event.parsed.args.amount0In,
+        amount: event.parsed.args?.amount0In,
       }),
-      calculateFeeInUsd({
+      fetchUsdPrice({
         event,
         token: token1,
-        amount: event.parsed.args.amount1In,
+        amount: event.parsed.args?.amount1In,
       }),
-      calculateFeeInUsd({
+      fetchUsdPrice({
         event,
         token: token0,
-        amount: event.parsed.args.amount0Out,
+        amount: event.parsed.args?.amount0Out,
       }),
-      calculateFeeInUsd({
+      fetchUsdPrice({
         event,
         token: token1,
-        amount: event.parsed.args.amount1Out,
+        amount: event.parsed.args?.amount1Out,
       }),
-    ]);
+    ]) as any;
 
   let amountUsd = 0;
 
@@ -88,11 +85,11 @@ async function persistEvent(event, transaction, token0, token1) {
   await database.upsert({
     // Entity type is used to group entities together.
     // Here we're creating 1 entity per event (Swap, etc).
-    entityType: event.parsed.name,
+    entityType: event.parsed.name as string,
 
     // Unique ID for this entity.
     //
-    // Soem useful tips:
+    // Some useful tips:
     // - chainId makes sure if potentially same tx has happened on different chains it will be stored separately.
     // - hash and logIndex make sure this event is stored uniquely.
     // - hash also makes sure with potential reorgs we don't store same event twice.
@@ -112,7 +109,7 @@ async function persistEvent(event, transaction, token0, token1) {
   }
 }
 
-async function persistPool(event) {
+export async function persistPool(event) {
   const poolId =
     `${event.chainId.toString()}#${event.log.address.toString()}`.toLowerCase();
 
@@ -120,7 +117,7 @@ async function persistPool(event) {
     entityType: "Pool",
     entityId: poolId,
     cache: true,
-  });
+  }) as Pool;
 
   if (pool?.token0 && pool?.token1) {
     return { token0: pool.token0, token1: pool.token1 };
@@ -142,7 +139,7 @@ async function persistPool(event) {
     contract.symbol(),
     contract.token0(),
     contract.token1(),
-  ]);
+  ]) as any;
 
   await database.upsert({
     entityType: "Pool",
@@ -161,6 +158,7 @@ async function persistPool(event) {
   return { token0: token0?.value, token1: token1?.value };
 }
 
+// local methods
 async function increaseRollingRecentStats(poolId, data) {
   await database.applyCounters({
     entityType: "Pool",
@@ -172,20 +170,6 @@ async function increaseRollingRecentStats(poolId, data) {
       last30DVolumeUsd: data.amountUsd,
     },
   });
-}
-
-async function calculateFeeInUsd({ event, token, amount }) {
-  if (token && amount) {
-    const price = await integrations.prices.getUsdAmountByAddress({
-      chainId: event.chainId,
-      tokenAddress: token,
-      tokenAmount: amount,
-      idealBlockNumber: event.blockNumber,
-      idealTimestamp: event.blockTimestamp,
-    });
-
-    return price.amountUsd;
-  }
 }
 
 function generateTimeBuckets(timestamp) {
@@ -220,23 +204,4 @@ function generateTimeBuckets(timestamp) {
     hourTimestamp,
     hourBucket: hourTimestamp.toISOString().slice(0, 13),
   };
-}
-
-function getISOWeekNumber(date) {
-  const tempDate = new Date(
-    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
-  );
-  const dayNumber = (tempDate.getUTCDay() + 6) % 7;
-  tempDate.setUTCDate(tempDate.getUTCDate() - dayNumber + 3);
-  const firstThursday = tempDate.getTime();
-  tempDate.setUTCMonth(0, 1);
-
-  if (tempDate.getUTCDay() !== 4) {
-    tempDate.setUTCMonth(0, 1 + ((4 - tempDate.getUTCDay() + 7) % 7));
-  }
-
-  return (
-    1 +
-    Math.ceil((firstThursday - tempDate.getTime()) / (7 * 24 * 60 * 60 * 1000))
-  );
 }

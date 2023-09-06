@@ -1,0 +1,26 @@
+{
+  "cluster": "prod",
+  "namespace": "uniswap-v2-events-from-all-contracts-with-usd-price-prod",
+  "indexers": [
+    {
+      "chainId": 1,
+      "enabled": true,
+      "ingestionFilterGroup": "default",
+      "processingFilterGroup": "default",
+      "sources": [
+        "wss://chain-1.rpc.internal.flair.build",
+        "https://chain-1.rpc.internal.flair.build"
+      ]
+    },
+    {
+      "chainId": 5,
+      "enabled": true,
+      "ingestionFilterGroup": "default",
+      "processingFilterGroup": "default",
+      "sources": [
+        "wss://chain-5.rpc.internal.flair.build",
+        "https://chain-5.rpc.internal.flair.build"
+      ]
+    }
+  ]
+}

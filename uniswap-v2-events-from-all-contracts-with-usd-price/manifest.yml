@@ -1,60 +1,45 @@
-manifest: 1.0.0
+manifest: 1.2.0
 
 defaultLogLevel: DEBUG
 
-namespaces:
-  - id: my-awesome-swapper
+cluster:
+  id: dev
+  size: small
+namespace: health-factor-with-factory-tracking-dev
 
 filterGroups:
-  - id: topics
-    updateStrategy: replace
-    description: |
-      This static filter group is used for all indexers to capture all relevant events.
-    topics:
-      - fromFile: ./factory-tracker/abi.json
-      - fromFile: ./pools-swaps/abi.json
-
-  - id: addresses
+  - id: default
     updateStrategy: preserve
     description: |
-      This group will be automatically populated by the factory-tracker as soon as a new pool is created.
-      It is also manually populated from the factories.csv for known factories.
-      This group is used to filter-out irrelevant contracts (other Uniswap-like protocols) which also emit the "topics" above but we don't want to process them.
-      If you want swap of "all" Uniswap-like protocols, you can remove this filter group and use "topics" filter group everywhere. 
+      This group contains all factories and vaults addresses that are being tracked.
+      Factories will be imported from CSV, then newly deployed pools will be added
+      using custom processor below (factory-tracker).
     addresses:
       - fromFile: ./factories.csv
 
 indexers:
-  - chainId: 1
+  - chainId: 10
     enabled: true
+    ingestionFilterGroup: default
+    processingFilterGroup: default
     sources:
-    - endpoint: wss://chain-1.rpc.internal.flair.build
-    - endpoint: https://chain-1.rpc.internal.flair.build
-    ingestionFilterGroup: topics
-    processingFilterGroup: addresses
+      - endpoint: wss://chain-10.rpc.internal.flair.build
+      - endpoint: https://chain-10.rpc.internal.flair.build
 
-  - chainId: 5
-    enabled: true
-    sources:
-    - endpoint: wss://chain-5.rpc.internal.flair.build
-    - endpoint: https://chain-5.rpc.internal.flair.build
-    ingestionFilterGroup: topics
-    processingFilterGroup: addresses
-    
 processors:
   - id: factory-tracker
-    abi: factory-tracker/abi.json
-    handler: factory-tracker/handler.js
+    handler: src/processors/factory-tracker/handler.ts
+    abi: src/processors/factory-tracker/abi.json
 
-  - id: pools-swaps
-    abi: pools-swaps/abi.json
-    handler: pools-swaps/handler.js
+  - id: erc4626-events
+    handler: src/processors/erc4626-events/handler.ts
+    abi: src/processors/erc4626-events/abi.json
 
-jobs:
-  - schedule: rate(60 minutes)
-    inputSql: './pools-aggregations/input.sql'
-    enricher: pools-aggregations
+workers:
+  - schedule: rate(15 minutes)
+    input_sql: src/processors/position-health/input.sql
+    enricher: calculate-position-health
 
 enrichers:
-  - id: pools-aggregations
-    handler: './pools-aggregations/handler.js'
+  - id: calculate-position-health
+    handler: src/processors/position-health/handler.ts

@@ -1,5 +1,6 @@
-exports.processEvent = function (event, callback) {
-  (async () => {
+import { blockchain, database, graph, EventHandlerInput } from 'flair-sdk';
+
+export async function processEvent(event: EventHandlerInput) {
     const chainId = event.chainId;
     const poolAddress = event?.parsed?.args?.pair;
 
@@ -27,9 +28,6 @@ exports.processEvent = function (event, callback) {
     await persistPool(event);
 
     return true;
-  })()
-    .then((res) => callback(res, null))
-    .catch((err) => callback(null, err));
 };
 
 async function persistPool(event) {
@@ -88,7 +86,7 @@ async function persistPool(event) {
     token1Contract.name(),
     token1Contract.symbol(),
     token1Contract.decimals(),
-  ]);
+  ]) as any;
 
   await database.upsert({
     entityType: "Pool",

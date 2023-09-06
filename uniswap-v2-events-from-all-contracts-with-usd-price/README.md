@@ -2,57 +2,87 @@
 
 This example demonstrates how to index Swap events from a Uniswap fork on all chains and all contracts with USD price of the tokens swapped at the time of the swap.
 
-# How to use?
+In this example you learn:
+* Tracking newly deployed pool contracts on known [factories](./factories.csv). 
+* Using [workers](https://docs.flair.build/advanced/workers) to Re-calculate Pools stats such as total volume for last 7 days, last 1 hour, etc. This job makes sure that the stats are always up-to-date and not skewed from reality when events are processed multiple times due to retries.
+* Index all "Swap" events and [store USD price](https://docs.flair.build/advanced/integrations#prices) at the time of swap. This processor also "optimistically" increments rolling stats of aPool such as total volume for last 7 days.
 
-1. Clone this repo and `cd` into this directory.
-2. Update namespace in [manifest.yml](./manifest.yml) to your own namespace.
-3. Example [factories.csv](./factories.csv) contains Uniswap v2 factory, which you can keep or replace.
-4. Deploy the components using `flair deploy` command.
-5. After deployment newly deployed pools will be tracked and their swaps will be indexed.
-6. To do a historical backfill you can use [backfill command](https://docs.flair.build/reference/backfilling)
+## Table of Contents
 
-Need helps? [Our engineers](https://docs.flair.build/talk-to-an-engineer) are ready to help.
+- [🏁 Getting Started](#getting-started)
+- [💎 Examples](#examples)
+- [🤔 FAQ](#faq)
 
-## Main [`manifest.yml`](./manifest.yml)
+## Getting Started
 
-Contains list of indexing components deployed in your cluster.
+1️⃣ Clone this repo:
 
-## Processors
+```bash
+git clone git@github.com:flair-sdk/examples.git my-indexer
+cd aggregate-protocol-fees-in-usd
+```
 
-Each processor is defined to listen for a particular event (log topic) and/or contract address.
+<br /> 
+2️⃣ Install packages and authenticate:
 
-### [factory-tracker](./factory-tracker)
+```bash
+pnpm i
+pnpm flair auth
+```
 
-Responsible for tracking newly deployed pools on known [factories](./factories.csv) based on `PoolCreated` event.
+<br />
+3️⃣ Set the namespace and config.json:
 
-Listens to:
+`config.dev.json` and `config.prod.json` are sample configs for `dev` and `prod` clusters.
 
-- All factory contracts listed in [factories.csv](./factories.csv)
-- Only "PoolCreated" event defined in [factory-tracker/abi.json](./factory-tracker/abi.json).
+Set a globally unique namespace in each config file (recommended to use `{ORG_NAME}-{ENV}`; e.g `sushiswap-dev` or `sushiswap-prod`) and then run:
 
-Custom script: [factory-tracker/handler.js](./factory-tracker/handler.js)
+```bash
+# Setting configs for dev testing
+cp config.dev.json config.json
 
-### [pools-swaps](./pools-swaps)
+# Or setting it for production
+cp config.prod.json config.json
+```
 
-Index all "Swap" events and store USD price at the time of swap. This processor also "optimistically" increments rolling stats of aPool such as total volume for last 7 days.
+<br />
+4️⃣ Generate manifest.yml and deploy:
 
-Listens to:
+```bash
+pnpm generate-and-deploy
+```
 
-- All pool contracts tracked via factory-tracker processor above.
-- Swap event defined in [pools-swaps/abi.json](./pools-swaps/abi.json).
+<br />
+5️⃣ Backfill certain contracts or block ranges:
 
-Custom script: [pools-swaps/handler.js](./pools-swaps/handler.js)
+```bash
+# Index last recent 10,000 blocks of a contract like this:
+pnpm flair backfill --chain 1 --address 0xbD6C7B0d2f68c2b7805d88388319cfB6EcB50eA9 -d backward --max-blocks 10000
+```
 
-## Scheduled Jobs
+Or you can backfill for a specific block number, if you have certain events you wanna test with:
 
-A scheduled job accepts a SQL as input, retrieves all rows and executes a custom enricher script for each row.
+```bash
+pnpm flair backfill --chain 1 -b 17998797
+```
 
-### [pools-aggregations](./pools-aggregations)
+Or backfill for the recent data in the last X minutes:
 
-Re-calculate Pools stats such as total volume for last 7 days, last 1 hour, etc. This job makes sure that the stats are always up-to-date and not skewed from reality when events are processed multiple times due to retries.
+```bash
+pnpm flair backfill --chain 1 --min-timestamp="5 mins ago" -d backward
+```
 
-- **Input:** [pools-aggregations/input.sql](./pools-aggregations/input.sql) is a query to return all Pools and the appropriate ranges like 1H, 1D, etc.
-- **Script:** [pools-aggregations/handler.js](./pools-aggregations/handler.js) updates each Pool with the aggregated values (last 1 hour volume etc) in the database.
+<br />
+6️⃣ Look at the logs:
+
+```bash
+pnpm flair logs --full -tag Level=warn
+pnpm flair logs --full -tag TransactionHash=0xXXXXX
+pnpm flair logs --full -tag ProcessorId=swap-events
+pnpm flair logs --full -tag ProcessorId=swap-events --watch
+```
+
+
 
 ## Examples
 
@@ -115,3 +145,9 @@ query {
   }
 }
 ```
+
+
+## FAQ
+
+**Q:** How do I enable/disable real-time ingestion for indexer? <br />
+**A:** For each indexer defined in `config.json`, you can enable/disable it via the `enabled: true/false` flag. Remember to run `pnpm deploy` for the changes to apply on the cluster. <br/><br />
