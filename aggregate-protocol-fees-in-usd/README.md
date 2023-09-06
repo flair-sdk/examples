@@ -3,8 +3,8 @@
 This example shows how to track fee collection events of a DeFi protocol where fees can be any arbitrary ERC20 token. 
 
 In this example you learn:
-* To use [`prices` integration](https://docs.flair.build/advanced/integrations#prices)  to get USD price of any ERC20 token for any block number or timestamp in the past.
-* Track same contract address across all EVM chains at once.
+* To use [`prices` integration](https://docs.flair.build/advanced/integrations#prices) to get USD price of any ERC20 token for any block number or timestamp in the past
+* Track same contract address across all EVM chains at once
 
 ## Table of Contents
 

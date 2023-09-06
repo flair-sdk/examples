@@ -2,59 +2,15 @@
 
 This example demonstrates how to calculate "Health Factor" of positions of a protocol that is using ERC4626 and deploys new Vaults using a factory.
 
+In this example you learn:
+* Tracking newly deployed pool contracts on known [factories](./factories.csv). 
+* Using [workers](https://docs.flair.build/advanced/workers) to re-calculate position health for each Position every 15 minutes.
+
 ## Table of Contents
 
-- [💡 What You'll Learn](#what-you'll-learn)
 - [🏁 Getting Started](#getting-started)
 - [💎 Examples](#examples)
 - [🤔 FAQ](#faq)
-
-
-
-## What You'll Learn
-
-### Main [`manifest.yml`](./manifest.yml)
-
-Contains list of indexing components deployed in your cluster.
-
-### Processors
-
-Each processor is defined to listen for a particular event (log topic) and/or contract address.
-
-### (1) [factory-tracker](./factory-tracker)
-
-Responsible for tracking newly deployed pools on known [factories](./factories.csv) based on [`DeployBorrowingVault`](./factory-tracker/abi.json) event.
-
-Listens to:
-
-- All factory contracts listed in [factories.csv](./factories.csv)
-- Only "DeployBorrowingVault" event defined in [factory-tracker/abi.json](./factory-tracker/abi.json).
-
-Custom script: [factory-tracker/handler.js](./factory-tracker/handler.js)
-
-### (2) [erc4626-events](./erc4626-events)
-
-Responsible for tracking all Deposit and Withdraw events on pool contracts.
-
-Listens to:
-
-- All pool contracts tracked via factory-tracker processor above.
-- All events defined in [erc4626-events/abi.json](./erc4626-events/abi.json).
-
-Custom script: [erc4626-events/handler.js](./erc4626-events/handler.js)
-
-### Workers
-
-A scheduled job accepts a SQL as input, retrieves all rows and executes a custom enricher script for each row.
-
-### Every 15 minutes
-
-Re-calculate position health for each Position every 15 minutes.
-
-- **Input:** [position-health/input.sql](./position-health/input.sql) is a query to return all active Positions.
-- **Script:** [position-health/handler.js](./position-health/handler.js) calculates position health and updates the entity in the database.
-
-
 
 ## Getting Started
 
