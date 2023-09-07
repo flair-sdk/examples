@@ -1,0 +1,34 @@
+manifest: 1.2.0
+
+defaultLogLevel: DEBUG
+
+cluster:
+  id: dev
+  size: large
+namespace: nft-processors
+
+filterGroups:
+  - id: default
+    updateStrategy: preserve
+    description: This default filter group is used for all indexers to capture
+      contract addresses you care about.
+    addresses:
+      - fromFile: ./contracts.csv
+
+indexers:
+  - chainId: 1
+    enabled: true
+    ingestionFilterGroup: default
+    processingFilterGroup: default
+    sources:
+      - endpoint: wss://chain-1.rpc.internal.flair.build
+      - endpoint: https://chain-1.rpc.internal.flair.build
+
+processors:
+  - id: erc721-transfers
+    abi: src/processors/erc721/transfer/abi.json
+    handler: src/processors/erc721/transfer/handler.ts
+  
+  - id: erc1155-transfers
+    abi: src/processors/erc1155/transfer/abi.json
+    handler: src/processors/erc1155/transfer/handler.ts

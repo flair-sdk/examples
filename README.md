@@ -8,6 +8,10 @@ Explore real-world usage of Flair indexing primitives for various use-cases.
 * [Calculate "Health Factor" of positions with contract factory tracking](./health-factor-with-factory-tracking/README.md)
 * [Index Uniswap v2 swaps with USD price for all addresses](./uniswap-v2-events-from-all-contracts-with-usd-price/README.md)
 
+### NFT
+
+* [Index ERC721 and ERC1155 NFTs on any EVM chain with an RPC URL](./erc721-and-erc1155-nft-indexing/README.md)
+
 ## How to deploy?
 
 1. Create a new project in Flair as described in [flair-sdk/starter-boilerplate](https://github.com/flair-sdk/starter-boilerplate) repo.
