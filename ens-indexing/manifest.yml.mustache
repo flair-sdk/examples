@@ -1,0 +1,33 @@
+manifest: 1.2.0
+
+defaultLogLevel: DEBUG
+
+cluster:
+  id: {{ cluster }}
+  size: small
+namespace: {{ namespace }}
+
+filterGroups:
+  - id: default
+    updateStrategy: preserve
+    description: This default filter group is used for all indexers to capture
+      contract addresses you care about.
+    addresses:
+      - fromFile: ./contracts.csv
+
+indexers:
+  {{#indexers}}
+  - chainId: {{chainId}}
+    enabled: {{enabled}}
+    ingestionFilterGroup: {{ingestionFilterGroup}}
+    processingFilterGroup: {{processingFilterGroup}}
+    sources:
+    {{#sources}}
+      - endpoint: {{{.}}}
+    {{/sources}}
+  {{/indexers}}
+
+processors:
+  - id: swap-events
+    abi: src/processors/swap-events/abi.json
+    handler: src/processors/swap-events/handler.ts

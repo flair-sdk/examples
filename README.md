@@ -12,12 +12,16 @@ Explore real-world usage of Flair indexing primitives for various use-cases.
 
 * [Index ERC721 and ERC1155 NFTs on any EVM chain with an RPC URL](./erc721-and-erc1155-nft-indexing/README.md)
 
+### ENS
+
+* [Index ENS data](./ens-indexing/README.md)
+
 ## How to deploy?
 
 1. Create a new project in Flair as described in [flair-sdk/starter-boilerplate](https://github.com/flair-sdk/starter-boilerplate) repo.
 2. Copy the contents of the example you want to deploy into your project directory.
 3. Run `flair deploy` command to deploy the project to your cluster.
-4. Do [backfill](https://docs.flair.dev/reference/cli-commands#flair-backfill) of a certain block range to see how your script works.
+4. Do [backfill](https://docs.flair.build/basic-tutorial#4-backfill-historical-data-to-test) of a certain block range to see how your script works.
 
 ## Need help?
 
