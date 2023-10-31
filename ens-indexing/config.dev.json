@@ -1,10 +1,10 @@
 {
   "cluster": "dev",
-  "namespace": "boilerplate-dev",
+  "namespace": "ens-indexing-example",
   "indexers": [
     {
       "chainId": 1,
-      "enabled": true,
+      "enabled": false,
       "ingestionFilterGroup": "default",
       "processingFilterGroup": "default",
       "sources": [

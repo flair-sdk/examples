@@ -28,6 +28,6 @@ indexers:
   {{/indexers}}
 
 processors:
-  - id: swap-events
-    abi: src/processors/swap-events/abi.json
-    handler: src/processors/swap-events/handler.ts
+  - id: registry-events
+    abi: src/processors/eth-registrar-events/abi.json
+    handler: src/processors/eth-registrar-events/handler.ts

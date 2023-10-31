@@ -31,7 +31,7 @@ const fetchUsdPrice = async function ({
   return null
 }
 
-async function upsertEvent(event: EventHandlerInput, extraData: any) {
+async function upsertEvent(event: EventHandlerInput, extraData?: any) {
   const provider = await blockchain.getProvider(event.chainId)
   const transaction = await provider
     .cached()
@@ -78,4 +78,24 @@ async function upsertEvent(event: EventHandlerInput, extraData: any) {
   return true
 }
 
-export { fetchUsdPrice, upsertEvent }
+function byteArrayFromHex(s: string) {
+  if (s.length % 2 !== 0) {
+    throw new TypeError("Hex string must have an even number of characters");
+  }
+  let out = new Uint8Array(s.length / 2);
+  for (var i = 0; i < s.length; i += 2) {
+    out[i / 2] = parseInt(s.substring(i, i + 2), 16);
+  }
+  return out;
+}
+
+function uint256ToByteArray(i: string) {
+  let hex = i
+    .slice(2)
+    .padStart(64, "0");
+  return byteArrayFromHex(hex);
+}
+
+export { fetchUsdPrice, upsertEvent, byteArrayFromHex, uint256ToByteArray }
+
+
