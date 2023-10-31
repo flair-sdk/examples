@@ -2,34 +2,7 @@ import {
   EventHandlerInput,
   blockchain,
   database,
-  integrations,
 } from 'flair-sdk'
-
-interface FetchUsdPriceParams {
-  event: EventHandlerInput
-  token: string
-  amount: number
-}
-
-const fetchUsdPrice = async function ({
-  event,
-  token,
-  amount,
-}: FetchUsdPriceParams): Promise<number | null> {
-  if (token && amount) {
-    const price = await integrations.prices.getUsdAmountByAddress({
-      chainId: event.chainId,
-      tokenAddress: token,
-      tokenAmount: amount,
-      idealBlockNumber: event.blockNumber,
-      idealTimestamp: event.blockTimestamp,
-    })
-
-    return price ? price.amountUsd : null
-  }
-
-  return null
-}
 
 async function upsertEvent(event: EventHandlerInput, extraData?: any) {
   const provider = await blockchain.getProvider(event.chainId)
@@ -96,6 +69,6 @@ function uint256ToByteArray(i: string) {
   return byteArrayFromHex(hex);
 }
 
-export { fetchUsdPrice, upsertEvent, byteArrayFromHex, uint256ToByteArray }
+export { upsertEvent, byteArrayFromHex, uint256ToByteArray }
 
 

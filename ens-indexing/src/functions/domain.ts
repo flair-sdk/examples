@@ -4,7 +4,7 @@ import { blockchain, database, EventHandlerInput } from 'flair-sdk'
 import { REGISTRY_ABI, REGISTRY_ADDRESS, RESOLVER_ABI } from '../../constants';
 
 
-export async function makeNode(node, label): Promise<string> {
+export async function makeNode(node: Uint8Array, label: Uint8Array): Promise<string> {
   return ethers.utils.keccak256(ethers.utils.hexConcat([node, label]));
 }
 
@@ -46,12 +46,6 @@ export async function nameAndAddressByHash(event: EventHandlerInput, node: strin
 
 
 export async function persistDomain(event: EventHandlerInput, extraData: any) {
-
-  const provider = await blockchain.getProvider(event.chainId);
-  const transaction = await provider
-    .cached()
-    .getTransactionReceipt(event.txHash);
-  
   return await database.upsert({
       entityType: "Domain",
       entityId: extraData.node,
@@ -61,9 +55,6 @@ export async function persistDomain(event: EventHandlerInput, extraData: any) {
         chainId: event.chainId,
         contractAddress: event.log.address,
         blockTimestamp: event.blockTimestamp,
-        removed: Boolean(event.log.removed),
-        txFrom: transaction.from,
-        txTo: transaction.to,
         txHash: event.txHash,
         ...extraData,
       }

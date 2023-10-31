@@ -1,5 +1,3 @@
-
-
 import { database } from 'flair-sdk'
 
 import { multiplex } from './multiplex'
