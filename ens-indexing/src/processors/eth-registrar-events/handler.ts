@@ -28,13 +28,14 @@ async function handleNameRegistered(event: EventHandlerInput) {
     owner,
   }
 
-  await persistDomain(event, extraData);
+  if (name && address !== EMPTY_ADDRESS) {
+      await persistDomain(event, extraData);
+  }
 }
 
 export const processEvent = async (event: EventHandlerInput) => {
   if (event.parsed.name === "NameRegistered") {
     await upsertEvent(event);
-    await getOrCreateAccount(event.chainId, event.parsed.args?.owner);
     await handleNameRegistered(event);
   };
 }

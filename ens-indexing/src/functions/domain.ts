@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import { blockchain, database, EventHandlerInput } from 'flair-sdk'
 
-import { REGISTRY_ABI, REGISTRY_ADDRESS, RESOLVER_ABI } from '../../constants';
+import { REGISTRY_ABI, REGISTRY_ADDRESS, RESOLVER_ABI, EMPTY_ADDRESS } from '../../constants';
 
 
 export async function makeNode(node: Uint8Array, label: Uint8Array): Promise<string> {
@@ -35,6 +35,13 @@ export async function nameAndAddressByHash(event: EventHandlerInput, node: strin
   const [address] = await Promise.all([
     resolverContract.addr(node),
   ]);
+
+  if (address == EMPTY_ADDRESS) {
+    return {
+      name: null,
+      address: EMPTY_ADDRESS,
+    }
+  }
 
   const name = await lookupAddress(event, address);
 

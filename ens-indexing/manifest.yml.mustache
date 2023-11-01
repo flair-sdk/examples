@@ -8,12 +8,13 @@ cluster:
 namespace: {{ namespace }}
 
 filterGroups:
-  - id: default
-    updateStrategy: preserve
-    description: This default filter group is used for all indexers to capture
-      contract addresses you care about.
-    addresses:
-      - fromFile: ./contracts.csv
+  - id: topics
+    updateStrategy: replace
+    description: |
+      This static filter group is used for all indexers to capture all relevant events.
+    topics:
+      - fromFile: ./src/processors/resolver-events/abi.json
+      - fromFile: ./src/processors/eth-registrar-events/abi.json
 
 indexers:
   {{#indexers}}
@@ -28,6 +29,10 @@ indexers:
   {{/indexers}}
 
 processors:
-  - id: registry-events
+  - id: resolver-events
+    abi: src/processors/resolver-events/abi.json
+    handler: src/processors/resolver-events/handler.ts
+
+  - id: eth-registrar-events
     abi: src/processors/eth-registrar-events/abi.json
     handler: src/processors/eth-registrar-events/handler.ts

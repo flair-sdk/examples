@@ -5,8 +5,8 @@
     {
       "chainId": 1,
       "enabled": false,
-      "ingestionFilterGroup": "default",
-      "processingFilterGroup": "default",
+      "ingestionFilterGroup": "topics",
+      "processingFilterGroup": "topics",
       "sources": [
         "wss://chain-1.rpc.internal.flair.build",
         "https://chain-1.rpc.internal.flair.build"
