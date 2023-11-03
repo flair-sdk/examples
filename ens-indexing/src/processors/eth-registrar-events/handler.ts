@@ -1,7 +1,6 @@
 import { EventHandlerInput } from 'flair-sdk';
 
 import { ETH_NODE, EMPTY_ADDRESS } from '../../../constants';
-import { getOrCreateAccount } from '../../functions/account';
 import { makeNode, nameAndAddressByHash, persistDomain } from '../../functions/domain';
 import { upsertEvent, uint256ToByteArray, byteArrayFromHex } from '../../functions/common';
 
@@ -19,13 +18,11 @@ async function handleNameRegistered(event: EventHandlerInput) {
   }
 
   const {name,address} = await nameAndAddressByHash(event, node);
-  const owner = event.parsed.args?.owner;
 
   const extraData = {
     node,
     name,
     address,
-    owner,
   }
 
   if (name && address !== EMPTY_ADDRESS) {

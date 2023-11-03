@@ -1,16 +1,16 @@
 import { ethers } from 'ethers';
 import { blockchain, database, EventHandlerInput } from 'flair-sdk'
 
-import { REGISTRY_ABI, REGISTRY_ADDRESS, RESOLVER_ABI, EMPTY_ADDRESS } from '../../constants';
+import { REGISTRY_ABI, REGISTRY_ADDRESS, RESOLVER_ABI, EMPTY_ADDRESS, REGISTRY_ADDRESS_OLD } from '../../constants';
 
+// local methods
+export async function _lookupAddress(event: EventHandlerInput, address: string): Promise<string | null> {
+  const provider = await blockchain.getProvider(event.chainId);
+  return await provider.lookupAddress(address);
+}
 
 export async function makeNode(node: Uint8Array, label: Uint8Array): Promise<string> {
   return ethers.utils.keccak256(ethers.utils.hexConcat([node, label]));
-}
-
-export async function lookupAddress(event: EventHandlerInput, address: string): Promise<string | null> {
-  const provider = await blockchain.getProvider(event.chainId);
-  return await provider.lookupAddress(address);
 }
 
 export async function nameAndAddressByHash(event: EventHandlerInput, node: string) {
@@ -22,9 +22,25 @@ export async function nameAndAddressByHash(event: EventHandlerInput, node: strin
     REGISTRY_ABI,
   );
 
-  const [resolver] = await Promise.all([
-    registryContract.resolver(node),
+  let resolver;
+  let [recordExists] = await Promise.all([
+    registryContract.recordExists(node),
   ]);
+
+  if (recordExists) {
+    [resolver] = await Promise.all([
+      registryContract.resolver(node),
+    ]);
+  } else { 
+    const registryContractOld = await blockchain.getContract(
+      chainId,
+      REGISTRY_ADDRESS_OLD,
+      REGISTRY_ABI,
+    );
+    [resolver] = await Promise.all([
+      registryContractOld.resolver(node),
+    ]);
+  }
 
   const resolverContract = await blockchain.getContract(
     chainId,
@@ -43,7 +59,7 @@ export async function nameAndAddressByHash(event: EventHandlerInput, node: strin
     }
   }
 
-  const name = await lookupAddress(event, address);
+  const name = await _lookupAddress(event, address);
 
   return {
     name,
