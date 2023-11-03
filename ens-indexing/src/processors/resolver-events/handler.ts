@@ -1,6 +1,5 @@
 import { EventHandlerInput } from 'flair-sdk';
 
-import { upsertEvent } from '../../functions/common';
 import { EMPTY_ADDRESS } from '../../../constants';
 import { nameAndAddressByHash, persistDomain } from '../../functions/domain';
 
@@ -27,6 +26,6 @@ async function handleNameChanged(event: EventHandlerInput) {
 
 export async function processEvent(event: EventHandlerInput) {
   if (event.parsed.name === "NameChanged") {
-        await upsertEvent(event);
+        await handleNameChanged(event);
     }
 };

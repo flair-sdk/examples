@@ -2,7 +2,7 @@ import { EventHandlerInput } from 'flair-sdk';
 
 import { ETH_NODE, EMPTY_ADDRESS } from '../../../constants';
 import { makeNode, nameAndAddressByHash, persistDomain } from '../../functions/domain';
-import { upsertEvent, uint256ToByteArray, byteArrayFromHex } from '../../functions/common';
+import { uint256ToByteArray, byteArrayFromHex } from '../../functions/common';
 
 
 async function handleNameRegistered(event: EventHandlerInput) { 
@@ -32,7 +32,6 @@ async function handleNameRegistered(event: EventHandlerInput) {
 
 export const processEvent = async (event: EventHandlerInput) => {
   if (event.parsed.name === "NameRegistered") {
-    await upsertEvent(event);
     await handleNameRegistered(event);
   };
 }
