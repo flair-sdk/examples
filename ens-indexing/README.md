@@ -1,6 +1,6 @@
 # Indexing Starter Boilerplate
 
-This repository contains boilerplate scripts, abis and schema for indexing (basic uniswap v2 swap data)
+This repository contains boilerplate scripts, abis and schema for ENS indexing
 
 ## Table of Contents
 
@@ -49,14 +49,7 @@ pnpm generate-and-deploy
 ```
 
 <br />
-5️⃣ Backfill certain contracts or block ranges:
-
-```bash
-# Index last recent 10,000 blocks of a contract like this:
-pnpm flair backfill --chain 1 --address 0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc -d backward --max-blocks 10000
-```
-
-Or you can backfill for a specific block number, if you have certain events you wanna test with:
+5️⃣ Backfill for a specific block number, if you have certain events you wanna test with:
 
 ```bash
 pnpm flair backfill --chain 1 -b 17998797
@@ -74,8 +67,8 @@ pnpm flair backfill --chain 1 --min-timestamp="5 mins ago" -d backward
 ```bash
 pnpm flair logs --full -tag Level=warn
 pnpm flair logs --full -tag TransactionHash=0xXXXXX
-pnpm flair logs --full -tag ProcessorId=swap-events
-pnpm flair logs --full -tag ProcessorId=swap-events --watch
+pnpm flair logs --full -tag ProcessorId=reverse-registrar-events
+pnpm flair logs --full -tag ProcessorId=reverse-registrar-events --watch
 ```
 
 ## Examples
@@ -89,31 +82,34 @@ pnpm flair logs --full -tag ProcessorId=swap-events --watch
 
 ```graphql
 query {
-  sql(
-    query: """
-    SELECT
-        *
-    FROM
-        entities
-    WHERE
-        namespace = 'vektor-finance'
-    """
-  ) {
-    stats {
-      elapsedMs
+    sql(
+        query: """
+            SELECT
+                COUNT(*) as totalCount,
+                entityType
+            FROM
+                entities
+            WHERE
+                namespace = 'ens-indexing-example'
+            GROUP BY entityType
+            ORDER BY totalCount DESC
+            LIMIT 100
+        """
+    ) {
+        stats {
+            elapsedMs
+        }
+        rows
     }
-    rows
-  }
 }
 ```
 
-## Next Steps
+## TODO
 
-The current flow covers a very basic indexing use-case. For more advanced ones, check the list below:
-
-- [Aggregate protocol fees in USD across multiple chains](https://github.com/flair-sdk/examples/tree/main/aggregate-protocol-fees-in-usd) <br/>
-- [calculate "Health Factor" of positions with contract factory tracking](https://github.com/flair-sdk/examples/tree/main/health-factor-with-factory-tracking) <br/>
-- [Uniswap v2 swaps with USD price for all contracts across all chains](https://github.com/flair-sdk/examples/tree/main/uniswap-v2-events-from-all-contracts-with-usd-price) <br/>
+- [ ] Reverse Registrar (PrimaryName<>Address Resolution)
+  - [x] Track new Reverse Registrar with events (0xa58E81fe9b61B5c3fE2AFD33CF304c454AbFc7Cb)
+  - [ ] Track Old Reverse Registrar with transaction tracing (0xa58E81fe9b61B5c3fE2AFD33CF304c454AbFc7Cb)
+  - [ ] Track DNS Registrar (0x58774Bb8acD458A640aF0B88238369A167546ef2)
 
 ## FAQ
 
