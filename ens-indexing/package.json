@@ -1,7 +1,7 @@
 {
-  "name": "@flair/starter-boilerplate",
+  "name": "@flair/ens-indexing-example",
   "version": "1.0.0",
-  "description": "Indexing boilerplate components and scripts",
+  "description": "ENS Indexing example",
   "main": "manifest.yml",
   "repository": "git@github.com:flair-sdk/starter-boilerplate.git",
   "author": "gm@flair.dev",
@@ -26,7 +26,6 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@ensdomains/eth-ens-namehash": "^2.0.15",
     "@ethersproject/hash": "^5.7.0",
     "ethers": "^5.7.2",
     "flair-sdk": "^1.1.19"
