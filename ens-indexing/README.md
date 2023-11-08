@@ -106,10 +106,10 @@ query {
 
 ## TODO
 
-- [ ] Reverse Registrar (PrimaryName<>Address Resolution)
-  - [x] Track new Reverse Registrar with events (0xa58E81fe9b61B5c3fE2AFD33CF304c454AbFc7Cb)
-  - [ ] Track Old Reverse Registrar with transaction tracing (0xa58E81fe9b61B5c3fE2AFD33CF304c454AbFc7Cb)
-  - [ ] Track DNS Registrar (0x58774Bb8acD458A640aF0B88238369A167546ef2)
+- [ ] PrimaryName<>Address Resolution
+  - [x] Track new Reverse Registrar with events (`0xa58E81fe9b61B5c3fE2AFD33CF304c454AbFc7Cb``)
+  - [ ] Track Old Reverse Registrar with transaction tracing (`0xa58E81fe9b61B5c3fE2AFD33CF304c454AbFc7Cb``)
+  - [ ] Track DNS Registrar (`0x58774Bb8acD458A640aF0B88238369A167546ef2``)
 
 ## FAQ
 
