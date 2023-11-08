@@ -1,17 +1,18 @@
 import { EventHandlerInput } from 'flair-sdk';
 
 import { EMPTY_ADDRESS } from '../../../constants';
-import { nameAndAddressByHash, persistDomain } from '../../functions/domain';
+import { _lookupAddress, persistDomain } from '../../functions/domain';
 
 
-async function handleNameChanged(event: EventHandlerInput) { 
+async function handleReverseClaimed(event: EventHandlerInput) { 
   
+  const address = event.parsed.args?.addr;
   const node = event.parsed.args?.node;
   if (node == EMPTY_ADDRESS) { 
     return;
   }
 
-  const {name,address} = await nameAndAddressByHash(event, node);
+  const name = await _lookupAddress(event, address);
 
   const extraData = {
     node,
@@ -25,7 +26,7 @@ async function handleNameChanged(event: EventHandlerInput) {
 }
 
 export async function processEvent(event: EventHandlerInput) {
-  if (event.parsed.name === "NameChanged") {
-        await handleNameChanged(event);
+  if (event.parsed.name === "ReverseClaimed") {
+        await handleReverseClaimed(event);
     }
 };

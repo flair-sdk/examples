@@ -8,13 +8,12 @@ cluster:
 namespace: {{ namespace }}
 
 filterGroups:
-  - id: topics
+  - id: addresses
     updateStrategy: replace
     description: |
       This static filter group is used for all indexers to capture all relevant events.
-    topics:
-      - fromFile: ./src/processors/resolver-events/abi.json
-      - fromFile: ./src/processors/eth-registrar-events/abi.json
+    addresses:
+      - fromFile: ./contracts.csv
 
 indexers:
   {{#indexers}}
@@ -29,10 +28,6 @@ indexers:
   {{/indexers}}
 
 processors:
-  - id: resolver-events
-    abi: src/processors/resolver-events/abi.json
-    handler: src/processors/resolver-events/handler.ts
-
-  - id: eth-registrar-events
-    abi: src/processors/eth-registrar-events/abi.json
-    handler: src/processors/eth-registrar-events/handler.ts
+  - id: reverse-registrar-events
+    abi: src/processors/reverse-registrar-events/abi.json
+    handler: src/processors/reverse-registrar-events/handler.ts
