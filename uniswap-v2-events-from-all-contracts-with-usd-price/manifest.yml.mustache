@@ -25,6 +25,8 @@ filterGroups:
       If you want swap of "all" Uniswap-like protocols, you can remove this filter group and use "topics" filter group everywhere. 
     addresses:
       - fromFile: ./factories.csv
+      - chainId: '*'
+        address: '*'
 
 indexers:
   {{#indexers}}

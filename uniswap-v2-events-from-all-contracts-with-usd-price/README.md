@@ -82,7 +82,39 @@ pnpm flair logs --full -tag ProcessorId=swap-events
 pnpm flair logs --full -tag ProcessorId=swap-events --watch
 ```
 
+## Not seeing any data?
 
+This is most probably because initially no Pool is being tracked. The indexer will always look at the "filterGroups" defined in your manifest, and any address/topic defined in ingestion or processing filter group will be tracked.
+
+You have few ways to track Pools:
+* Use the correct factory address in [factories.csv](./factories.csv) and run `pnpm generate-and-deploy` again. Then do a full (or limited) backfill for that factory to capture and track all the pools:
+```bash
+pnpm flair backfill --chain 1 --address 0x1F984__FactoryAddress__a31F984 --max-blocks 1000000 --provisioned
+```
+
+* Or, manually add few Pool addresses to the processing filterGroup:
+```yaml
+# manifest.yml.mustache
+...
+processing:
+  filterGroups:
+    - id: addresses 
+      addresses:
+        - chainId: '*'
+          address: '0x0000000000'
+```
+
+* Or track all Uniswap-compatible pools, remember this might be very expensive on bigger chains like Polygon or Arbitrum:
+```yaml
+# manifest.yml.mustache
+...
+processing:
+  filterGroups:
+    - id: addresses 
+      addresses:
+        - chainId: '*'
+          address: '*'
+```
 
 ## Examples
 
