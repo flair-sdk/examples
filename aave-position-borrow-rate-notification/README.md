@@ -16,7 +16,6 @@ This repository provides scripts, processors and aggregations to index and notif
 
 - [🏁 Getting Started](#getting-started)
 - [💎 Examples](#examples)
-- [🚀 Next Steps](#next-steps)
 - [🤔 FAQ](#faq)
 
 ## Getting Started
@@ -110,14 +109,6 @@ query {
   }
 }
 ```
-
-## Next Steps
-
-The current flow covers a very basic indexing use-case. For more advanced ones, check the list below:
-
-- [Aggregate protocol fees in USD across multiple chains](https://github.com/flair-sdk/examples/tree/main/aggregate-protocol-fees-in-usd) <br/>
-- [calculate "Health Factor" of positions with contract factory tracking](https://github.com/flair-sdk/examples/tree/main/health-factor-with-factory-tracking) <br/>
-- [Uniswap v2 swaps with USD price for all contracts across all chains](https://github.com/flair-sdk/examples/tree/main/uniswap-v2-events-from-all-contracts-with-usd-price) <br/>
 
 ## FAQ
 
