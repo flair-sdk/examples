@@ -1,6 +1,6 @@
 {
   "cluster": "prod",
-  "namespace": "aave-indexing-example-prod",
+  "namespace": "aave-position-borrow-rate-notification-prod",
   "indexers": [
     {
       "chainId": 1,

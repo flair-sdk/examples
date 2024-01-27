@@ -5,7 +5,7 @@ defaultLogLevel: INFO
 cluster:
   id: dev
   size: small
-namespace: aave-indexing-example-dev
+namespace: aave-position-borrow-rate-notification-dev
 
 filterGroups:
   - id: default
@@ -48,5 +48,9 @@ enrichers:
 
 workers:
   - schedule: rate(60 minutes)
-    enabled: true
+    enabled: false
     enricher: aave-positions
+
+  - schedule: rate(60 minutes)
+    enabled: false
+    enricher: aave-notifications

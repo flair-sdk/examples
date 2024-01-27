@@ -51,5 +51,9 @@ enrichers:
 
 workers:
   - schedule: rate(60 minutes)
-    enabled: true
+    enabled: false
     enricher: aave-positions
+
+  - schedule: rate(60 minutes)
+    enabled: false
+    enricher: aave-notifications
