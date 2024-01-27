@@ -1,0 +1,14 @@
+{
+  "cluster": "dev",
+  "namespace": "transactions-with-internals-and-reverts-dev",
+  "indexers": [
+    {
+      "chainId": 1,
+      "enabled": true,
+      "sources": [
+        "wss://chain-1.rpc.internal.flair.build",
+        "https://chain-1.rpc.internal.flair.build"
+      ]
+    }
+  ]
+}

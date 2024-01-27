@@ -1,5 +1,5 @@
 {
-  "name": "@flair/aggregator-protocol-fee-in-usd-example",
+  "name": "@flair-sdk/aggregator-protocol-fee-in-usd-example",
   "version": "1.0.0",
   "description": "Indexing example components and scripts",
   "main": "manifest.yml",
@@ -17,13 +17,13 @@
   "devDependencies": {
     "@types/node": "^20.3.2",
     "@types/prettier": "^3.0.0",
-    "flair-cli": "^1.25.4",
+    "flair-cli": "^1.26.1",
     "mustache": "^4.2.0",
     "prettier": "^3.0.3",
     "rome": "^12.1.3",
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "flair-sdk": "^1.3.4"
+    "flair-sdk": "^1.4.0"
   }
 }

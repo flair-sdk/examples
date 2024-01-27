@@ -1,0 +1,14 @@
+{
+  "cluster": "prod",
+  "namespace": "transactions-with-internals-and-reverts-prod",
+  "indexers": [
+    {
+      "chainId": 1,
+      "enabled": false,
+      "sources": [
+        "wss://chain-1.rpc.internal.flair.build",
+        "https://chain-1.rpc.internal.flair.build"
+      ]
+    }
+  ]
+}

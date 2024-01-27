@@ -1,7 +1,7 @@
 {
-  "name": "@flair-sdk/starter-boilerplate",
+  "name": "@flair-sdk/ens-indexing-example",
   "version": "1.0.0",
-  "description": "Indexing boilerplate components and scripts",
+  "description": "ENS Indexing example",
   "main": "manifest.yml",
   "repository": "git@github.com:flair-sdk/starter-boilerplate.git",
   "author": "gm@flair.dev",
@@ -12,7 +12,9 @@
     "lint": "rome check .",
     "lint:fix": "pnpm lint --apply",
     "generate": "find ./ -type f -name '*.mustache' -exec sh -c 'mustache ./config.json \"$1\" > \"${1%.mustache}\"' _ {} \\;",
-    "generate-and-deploy": "pnpm run generate && flair deploy"
+    "generate:windows": "Get-ChildItem -Recurse -Filter '*.mustache' | ForEach-Object { mustache ./config.json $_.FullName > $_.FullName.Replace('.mustache', '') }",
+    "generate-and-deploy": "pnpm run generate && flair deploy",
+    "generate-and-deploy:windows": "pnpm run generate:windows && flair deploy"
   },
   "devDependencies": {
     "@types/node": "^20.3.2",
@@ -24,10 +26,8 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@flair-sdk/contracts": "^2.27.0",
-    "aws-sdk": "^2.1450.0",
+    "@ethersproject/hash": "^5.7.0",
     "ethers": "^5.7.2",
-    "flair-sdk": "^1.4.0",
-    "got": "^11.8.2"
+    "flair-sdk": "^1.4.0"
   }
 }

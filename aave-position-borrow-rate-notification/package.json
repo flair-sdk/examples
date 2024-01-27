@@ -1,5 +1,5 @@
 {
-  "name": "@flair/aave-indexing-example",
+  "name": "@flair-sdk/aave-indexing-example",
   "version": "1.0.0",
   "description": "Indexing components and scripts for Aave",
   "main": "manifest.yml",
@@ -19,7 +19,7 @@
   "devDependencies": {
     "@types/node": "^20.3.2",
     "@types/prettier": "^3.0.0",
-    "flair-cli": "^1.26.0",
+    "flair-cli": "^1.26.1",
     "mustache": "^4.2.0",
     "prettier": "^3.0.3",
     "rome": "^12.1.3",

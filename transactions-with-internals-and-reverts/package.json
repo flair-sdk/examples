@@ -1,7 +1,7 @@
 {
-  "name": "@flair/ens-indexing-example",
+  "name": "@flair-sdk/transactions-with-internals-and-reverts",
   "version": "1.0.0",
-  "description": "ENS Indexing example",
+  "description": "Index EVM transactions and internal calls with revert reasons",
   "main": "manifest.yml",
   "repository": "git@github.com:flair-sdk/starter-boilerplate.git",
   "author": "gm@flair.dev",
@@ -19,15 +19,13 @@
   "devDependencies": {
     "@types/node": "^20.3.2",
     "@types/prettier": "^3.0.0",
-    "flair-cli": "^1.25.4",
+    "flair-cli": "^1.26.1",
     "mustache": "^4.2.0",
     "prettier": "^3.0.3",
     "rome": "^12.1.3",
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@ethersproject/hash": "^5.7.0",
-    "ethers": "^5.7.2",
-    "flair-sdk": "^1.3.4"
+    "flair-sdk": "^1.4.0"
   }
 }
