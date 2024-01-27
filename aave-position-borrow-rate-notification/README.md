@@ -110,6 +110,14 @@ query {
 }
 ```
 
+#### Visaulize indexed data via Grafana
+
+[engineers](https://grafana.flair.build/public-dashboards/03189ef9b57f4167bcc16bc51a21b651?orgId=1)
+
+![grafana](https://i.imgur.com/kwZK9yO.png)
+
+Note: Grafana feature is in beta mode. Reach out to our [engineers](https://docs.flair.dev/talk-to-an-engineer) for access.
+
 ## FAQ
 
 **Q:** How do I enable/disable real-time ingestion for indexer? <br />
