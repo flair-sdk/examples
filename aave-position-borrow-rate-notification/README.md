@@ -124,6 +124,12 @@ query {
 
 Note: Grafana feature is in beta mode. Reach out to our [engineers](https://docs.flair.dev/talk-to-an-engineer) for access.
 
+#### Notify changes in real-time
+
+Configure [any data or aggregation](https://github.com/flair-sdk/examples/blob/main/aave-position-borrow-rate-notification/src/aggregation/aave-notifications/input.sql) and get [notification via zapier webhooks (e.g discord, slack, email, etc.)](https://github.com/flair-sdk/examples/blob/main/aave-position-borrow-rate-notification/src/aggregation/aave-notifications/handler.ts)
+
+![grafana](blob:https://imgur.com/c95f1597-fe2a-4a34-a1cb-9f7da8302daa)
+
 ## FAQ
 
 **Q:** How do I enable/disable real-time ingestion for indexer? <br />
