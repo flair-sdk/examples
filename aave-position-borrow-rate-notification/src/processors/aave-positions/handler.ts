@@ -66,7 +66,8 @@ export async function processBlock({ block, horizon }: any) {
       blockTimestamp: block.timestamp,
       horizon,
       positionAddress,
-      restUserSummary,
+      
+      ...restUserSummary,
     });
   }
 };
