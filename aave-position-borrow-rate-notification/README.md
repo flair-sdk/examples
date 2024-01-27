@@ -86,7 +86,7 @@ pnpm flair logs --full -tag ProcessorId=aave-positions --watch
 #### Get all entity types total count
 
 - Method: `POST`
-- Endpoint: [https://graph.flair.dev/](https://api.flair.dev/)
+- Endpoint: [https://api.flair.dev/](https://api.flair.dev/)
 - Headers: `X-API-KEY: <your-api-key>`
 - Body:
 
