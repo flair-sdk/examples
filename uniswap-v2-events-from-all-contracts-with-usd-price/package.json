@@ -1,5 +1,5 @@
 {
-  "name": "@flair/uniswap-v2-events-from-all-contracts-with-usd-price",
+  "name": "@flair-sdk/uniswap-v2-events-from-all-contracts-with-usd-price",
   "version": "1.0.0",
   "description": "Indexing example components and scripts",
   "main": "manifest.yml",

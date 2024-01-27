@@ -1,0 +1,42 @@
+manifest: 1.2.0
+
+defaultLogLevel: INFO
+
+cluster:
+  id: {{ cluster }}
+  size: small
+namespace: {{ namespace }}
+
+filterGroups:
+  - id: default
+    updateStrategy: preserve
+    description: This default filter group is used for all indexers to capture
+      contract addresses you care about. It can read from a csv, or hard-coded, or updated via API.
+    addresses:
+      - fromFile: ./contracts.csv
+      - chainId: 1234
+        address: '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc'
+
+indexers:
+  {{#indexers}}
+  - chainId: {{chainId}}
+    enabled: {{enabled}}
+    ingestionFilterGroup: default
+    processingFilterGroup: default
+    logsListenerEnabled: false
+    blocksListenerEnabled: true
+    emitEvents: false
+    emitBlocks: false
+    emitTransactions: true
+    emitInternalTransactions: true
+    resolveRevertReason: true
+    sources:
+    {{#sources}}
+      - endpoint: {{{.}}}
+    {{/sources}}
+  {{/indexers}}
+
+processors:
+  - id: my-protocol-txs
+    type: transaction
+    handler: src/processors/my-protocol-txs/handler.ts

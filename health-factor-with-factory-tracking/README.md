@@ -81,14 +81,17 @@ pnpm flair logs --full -tag ProcessorId=swap-events
 pnpm flair logs --full -tag ProcessorId=swap-events --watch
 ```
 
+<br />
+7️⃣ Explore the data in playground:
 
+Visit the [playground](https://api.flair.build) and run the following query in Examples section.
 
 ## Examples
 
 #### Get all entity types total count
 
 - Method: `POST`
-- Endpoint: [https://graph.flair.dev/](https://graph.flair.dev/)
+- Endpoint: [https://api.flair.build/](https://api.flair.build/)
 - Headers: `X-API-KEY: <your-api-key>`
 - Body:
 
@@ -117,7 +120,7 @@ query {
 #### Get deposits and withdrawals for a specific wallet, most recent first
 
 - Method: `POST`
-- Endpoint: [https://graph.flair.dev/](https://graph.flair.dev/)
+- Endpoint: [https://api.flair.build/](https://api.flair.build/)
 - Headers: `X-API-KEY: <your-api-key>`
 - Body:
 
@@ -148,7 +151,7 @@ query {
 #### Get health positions with limit-offset pagination
 
 - Method: `POST`
-- Endpoint: [https://graph.flair.dev/](https://graph.flair.dev/)
+- Endpoint: [https://api.flair.build/](https://api.flair.build/)
 - Headers: `X-API-KEY: <your-api-key>`
 - Body:
 

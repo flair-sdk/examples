@@ -1,15 +1,12 @@
-# ERC721 and ERC1155 NFT Indexing on any EVM chain
+# Index EVM transactions including internal calls and revert reasons
 
-Example processors for ERC721 and ERC1155 NFTs on any EVM chain using Flair's indexing service.
-
-#### Work in progress
-
-This example has base processors for NFT Transfers, Ownership, Tokens and Collections, but other aspects such as Media ingestion (for resizing image), etc are still in progress, watch this repo for updates and feel free to fork and update based on your own logic.
+This repository shows how to listen to EVM transactions (include internal transactions) and store them in your database. It also tracks failed transactions and automatically resolves the revert reason.
 
 ## Table of Contents
 
 - [🏁 Getting Started](#getting-started)
 - [💎 Examples](#examples)
+- [🚀 Next Steps](#next-steps)
 - [🤔 FAQ](#faq)
 
 ## Getting Started
@@ -17,8 +14,8 @@ This example has base processors for NFT Transfers, Ownership, Tokens and Collec
 1️⃣ Clone this repo:
 
 ```bash
-git clone https://github.com/flair-sdk/starter-boilerplate.git my-indexer
-cd my-indexer
+git clone https://github.com/flair-sdk/starter-boilerplate.git transactions-with-internals-and-reverts
+cd transactions-with-internals-and-reverts
 ```
 
 <br /> 
@@ -51,27 +48,26 @@ cp config.prod.json config.json
 pnpm generate-and-deploy
 ```
 
+> For the first time it'll take few minutes to create your cluster components.
+
 <br />
 5️⃣ Backfill certain contracts or block ranges:
 
 ```bash
-# Index last recent 10,000 blocks of BoredApe NFTs like this:
-pnpm flair backfill --chain 1 --address 0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d -d backward --max-blocks 10000
-
-# Index last recent 10,000 blocks of an ERC1155 NFT like this:
-pnpm flair backfill --chain 1 --address 0x76be3b62873462d2142405439777e971754e8e77 -d backward --max-blocks 10000 
+# Index last recent 100 blocks of a contract like this:
+pnpm flair backfill --chain 1 --address 0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc -d backward --max-blocks 100 --emit evm-transactions
 ```
 
 Or you can backfill for a specific block number, if you have certain events you wanna test with:
 
 ```bash
-pnpm flair backfill --chain 1 -b 17998797
+pnpm flair backfill --chain 1 -b 17998797 --emit evm-transactions
 ```
 
 Or backfill for the recent data in the last X minutes:
 
 ```bash
-pnpm flair backfill --chain 1 --min-timestamp="5 mins ago" -d backward
+pnpm flair backfill --chain 1 --min-timestamp="5 mins ago" -d backward --emit evm-transactions
 ```
 
 <br />
@@ -102,12 +98,16 @@ Visit the [playground](https://api.flair.build) and run the following query in E
 query {
   sql(
     query: """
-    SELECT
-        *
-    FROM
-        entities
-    WHERE
-        namespace = 'sushiswap-dev'
+      SELECT
+          COUNT(*) as totalCount,
+          entityType
+      FROM
+          entities
+      WHERE
+          namespace = 'transactions-with-internals-and-reverts-dev'
+      GROUP BY entityType
+      ORDER BY totalCount DESC
+      LIMIT 10
     """
   ) {
     stats {
@@ -118,19 +118,12 @@ query {
 }
 ```
 
+## Next Steps
+
+You can use the Database real-time syncing mechanism to push the historical and real-time.
+Visit [Database](https://docs.flair.dev/reference/database) docs on how to do it.
+
 ## FAQ
 
 **Q:** How do I enable/disable real-time ingestion for indexer? <br />
-**A:** For each indexer defined in `config.json`, you can enable/disable it via the `enabled: true/false` flag. Remember to run `pnpm deploy` for the changes to apply on the cluster. <br/><br />
-
-### Todo Checklist
-
-- [ ] Add reorg handler for transfers, ownerships
-- [ ] Support consequtive transfers for erc721
-- [X] Add enricher for NFT metadata
-- [ ] Upload large metadata to S3
-- [ ] Add enricher for NFT media resizing
-- [ ] Trigger enricher for NFT metadata on mint
-- [ ] Add enricher for contracts that can be triggered to import a contract before tracking for example
-- [X] Make inputSql optional for enrichers
-- [ ] Support topic hashes without data (on processor? or in ingestor? or in handler?)
+**A:** For each indexer defined in `config.json`, you can enable/disable it via the `enabled: true/false` flag. Remember to run `pnpm generate-and-deploy` for the changes to apply on the cluster. <br/><br />

@@ -1,5 +1,5 @@
 {
-  "name": "@flair/ens-indexing-example",
+  "name": "@flair-sdk/ens-indexing-example",
   "version": "1.0.0",
   "description": "ENS Indexing example",
   "main": "manifest.yml",

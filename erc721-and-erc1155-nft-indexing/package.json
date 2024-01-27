@@ -1,5 +1,5 @@
 {
-  "name": "@flair/starter-boilerplate",
+  "name": "@flair-sdk/starter-boilerplate",
   "version": "1.0.0",
   "description": "Indexing boilerplate components and scripts",
   "main": "manifest.yml",

@@ -15,7 +15,7 @@ Explore real-world usage of Flair indexing primitives for various use-cases.
 
 ### ENS
 
-* [Index ENS data](./ens-indexing/README.md)
+* [ENS simple domain reversals indexer](./ens-simple-name-reversal/README.md)
 
 ## How to deploy?
 

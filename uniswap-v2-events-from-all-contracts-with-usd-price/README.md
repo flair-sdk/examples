@@ -82,6 +82,11 @@ pnpm flair logs --full -tag ProcessorId=swap-events
 pnpm flair logs --full -tag ProcessorId=swap-events --watch
 ```
 
+<br />
+7️⃣ Explore the data in playground:
+
+Visit the [playground](https://api.flair.build) and run the following query in Examples section.
+
 ## Not seeing any data?
 
 This is most probably because initially no Pool is being tracked. The indexer will always look at the "filterGroups" defined in your manifest, and any address/topic defined in ingestion or processing filter group will be tracked.
@@ -121,7 +126,7 @@ processing:
 #### Get all entity types total count
 
 - Method: `POST`
-- Endpoint: [https://graph.flair.dev/](https://graph.flair.dev/)
+- Endpoint: [https://api.flair.build/](https://api.flair.build/)
 - Headers: `X-API-KEY: <your-api-key>`
 - Body:
 
@@ -150,7 +155,7 @@ query {
 #### Order all Pools by total USD volume in last 7 days
 
 - Method: `POST`
-- Endpoint: [https://graph.flair.dev/](https://graph.flair.dev/)
+- Endpoint: [https://api.flair.build/](https://api.flair.build/)
 - Headers: `X-API-KEY: <your-api-key>`
 - Body:
 
@@ -178,8 +183,10 @@ query {
 }
 ```
 
-
 ## FAQ
 
 **Q:** How do I enable/disable real-time ingestion for indexer? <br />
 **A:** For each indexer defined in `config.json`, you can enable/disable it via the `enabled: true/false` flag. Remember to run `pnpm deploy` for the changes to apply on the cluster. <br/><br />
+
+**Q:** Not seeing any data? <br />
+Refer to [Not seeing any data?](#not-seeing-any-data) section above. <br/><br />

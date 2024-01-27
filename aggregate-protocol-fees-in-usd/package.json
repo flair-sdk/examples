@@ -1,5 +1,5 @@
 {
-  "name": "@flair/aggregator-protocol-fee-in-usd-example",
+  "name": "@flair-sdk/aggregator-protocol-fee-in-usd-example",
   "version": "1.0.0",
   "description": "Indexing example components and scripts",
   "main": "manifest.yml",
