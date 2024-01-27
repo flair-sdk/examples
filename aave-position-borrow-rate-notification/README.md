@@ -3,7 +3,7 @@
 This repository provides scripts, processors and aggregations to index and notify cumulative metrics, such as totalBorrows, and aggregations, such as borrow rate change, for Aave positions (v2 and v3). The solution is designed to gather relevant data and send notifications for informed decision-making based on the aggregated metrics.
 
 ## Features
-* Cumulative Metrics Indexing: The solution captures and indexes cumulative metrics, including but not limited to totalBorrows, associated with Aave positions, <b>per block</b>.
+* **Cumulative Metrics Indexing:** The solution captures and indexes cumulative metrics, including but not limited to totalBorrows, associated with Aave positions, <b>per block</b>.
 
 * **Aggregations:** Aggregated metrics, such as borrow rate change, are computed to provide a comprehensive view of the dynamics within the Aave protocol.
 
@@ -83,7 +83,7 @@ pnpm flair logs --full -tag ProcessorId=aave-positions --watch
 
 ## Examples
 
-#### Query indexed entity types total count
+#### Query indexed entity types
 
 - Method: `POST`
 - Endpoint: [https://api.flair.dev/](https://api.flair.dev/)
@@ -116,6 +116,6 @@ query {
 **A:** For each indexer defined in `config.json`, you can enable/disable it via the `enabled: true/false` flag. Remember to run `pnpm generate-and-deploy` for the changes to apply on the cluster. <br/><br />
 
 **Q:** How can this scale to many more positions? <br />
-**A:** For up to 100 positions the current approach can work, for up to 10k positions you can take advantage of the scheduled worker feature, and for 1m+ positions you need to change the approach instead of fetching data for each position, index the Aave protocol and use the aggregations feature of Flair. Reach out to our team if you need to scale this solution.. <br/><br />
+**A:** For up to 100 positions the current approach can work, for up to 10k positions you can take advantage of the scheduled worker feature, and for 1m+ positions you need to change the approach instead of fetching data for each position, index the Aave protocol and use the aggregations feature of Flair. Reach out to our team if you need to scale this solution. <br/><br />
 
 
