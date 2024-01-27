@@ -1,0 +1,42 @@
+{
+  "name": "@flair/aave-indexing-example",
+  "version": "1.0.0",
+  "description": "Indexing components and scripts for Aave",
+  "main": "manifest.yml",
+  "repository": "git@github.com:flair-sdk/starter-boilerplate.git",
+  "author": "gm@flair.dev",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "format": "rome format . --write",
+    "lint": "rome check .",
+    "lint:fix": "pnpm lint --apply",
+    "generate": "find ./ -type f -name '*.mustache' -exec sh -c 'mustache ./config.json \"$1\" > \"${1%.mustache}\"' _ {} \\;",
+    "generate:windows": "Get-ChildItem -Recurse -Filter '*.mustache' | ForEach-Object { mustache ./config.json $_.FullName > $_.FullName.Replace('.mustache', '') }",
+    "generate-and-deploy": "pnpm run generate && flair deploy",
+    "generate-and-deploy:windows": "pnpm run generate:windows && flair deploy"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.2",
+    "@types/prettier": "^3.0.0",
+    "flair-cli": "^1.26.0",
+    "mustache": "^4.2.0",
+    "prettier": "^3.0.3",
+    "rome": "^12.1.3",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@aave/contract-helpers": "^1.21.1",
+    "@aave/math-utils": "^1.21.1",
+    "@bgd-labs/aave-address-book": "^2.15.2",
+    "@ethersproject/contracts": "^5.7.0",
+    "axios": "^1.6.7",
+    "dayjs": "^1.11.10",
+    "ethers": "^5.7.1",
+    "flair-sdk": "^1.4.0",
+    "install": "^0.13.0",
+    "node-fetch": "^2.7.0",
+    "npm": "^10.3.0",
+    "utils": "link:ethers/lib/utils"
+  }
+}
