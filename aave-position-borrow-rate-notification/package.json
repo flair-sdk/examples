@@ -30,7 +30,6 @@
     "@aave/math-utils": "^1.21.1",
     "@bgd-labs/aave-address-book": "^2.15.2",
     "@ethersproject/contracts": "^5.7.0",
-    "axios": "^1.6.7",
     "dayjs": "^1.11.10",
     "ethers": "^5.7.1",
     "flair-sdk": "^1.4.0",
