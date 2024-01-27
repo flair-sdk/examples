@@ -1,6 +1,18 @@
-# Indexing Starter Boilerplate
+# Index and notify Aave cumulative metrics (e.g totalBorrows) and aggregations (e.g borrow rate change)
 
-This repository contains boilerplate scripts, abis and schema for indexing (basic uniswap v2 swap data)
+Index and Notify Aave Cumulative Metrics
+This repository provides a solution to index and notify cumulative metrics, such as totalBorrows, and aggregations, such as borrow rate change, for Aave positions. The solution is designed to gather relevant data and send notifications for informed decision-making based on the aggregated metrics.
+
+## Overview
+Aave is a decentralized finance (DeFi) platform, and tracking key metrics related to user positions is crucial for assessing the health and performance of the protocol. This solution leverages indexing and notification mechanisms to facilitate the monitoring of cumulative metrics and aggregations related to Aave positions.
+
+## Features
+* Cumulative Metrics Indexing: The solution captures and indexes cumulative metrics, including but not limited to totalBorrows, associated with Aave positions.
+
+* Aggregations: Aggregated metrics, such as borrow rate change, are computed to provide a comprehensive view of the dynamics within the Aave protocol.
+
+* Notification Mechanism: Notifications are sent to a specified endpoint (e.g., Zapier webhook) to enable real-time awareness and response to changes in the Aave positions.
+
 
 ## Table of Contents
 
