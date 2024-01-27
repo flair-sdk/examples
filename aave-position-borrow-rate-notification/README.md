@@ -83,7 +83,7 @@ pnpm flair logs --full -tag ProcessorId=aave-positions --watch
 
 ## Examples
 
-#### Get all entity types total count
+#### Query indexed entity types total count
 
 - Method: `POST`
 - Endpoint: [https://api.flair.dev/](https://api.flair.dev/)
