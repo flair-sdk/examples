@@ -1,17 +1,15 @@
-# Index and notify Aave cumulative metrics (e.g totalBorrows) and aggregations (e.g borrow rate change)
+# Index and notify Aave cumulative metrics (e.g totalBorrows) and aggregations (e.g borrow rate change) per block
 
-Index and Notify Aave Cumulative Metrics
-This repository provides a solution to index and notify cumulative metrics, such as totalBorrows, and aggregations, such as borrow rate change, for Aave positions. The solution is designed to gather relevant data and send notifications for informed decision-making based on the aggregated metrics.
-
-## Overview
-Aave is a decentralized finance (DeFi) platform, and tracking key metrics related to user positions is crucial for assessing the health and performance of the protocol. This solution leverages indexing and notification mechanisms to facilitate the monitoring of cumulative metrics and aggregations related to Aave positions.
+This repository provides scripts, processors and aggregations to index and notify cumulative metrics, such as totalBorrows, and aggregations, such as borrow rate change, for Aave positions (v2 and v3). The solution is designed to gather relevant data and send notifications for informed decision-making based on the aggregated metrics.
 
 ## Features
-* Cumulative Metrics Indexing: The solution captures and indexes cumulative metrics, including but not limited to totalBorrows, associated with Aave positions.
+* Cumulative Metrics Indexing: The solution captures and indexes cumulative metrics, including but not limited to totalBorrows, associated with Aave positions, <b>per block</b>.
 
 * Aggregations: Aggregated metrics, such as borrow rate change, are computed to provide a comprehensive view of the dynamics within the Aave protocol.
 
 * Notification Mechanism: Notifications are sent to a specified endpoint (e.g., Zapier webhook) to enable real-time awareness and response to changes in the Aave positions.
+
+* Database: All the historical and real-time new data can be written to your own database (Postgres, MongoDB, DynamoDB, etc.)
 
 
 ## Table of Contents
@@ -26,8 +24,8 @@ Aave is a decentralized finance (DeFi) platform, and tracking key metrics relate
 1️⃣ Clone this repo:
 
 ```bash
-git clone https://github.com/flair-sdk/starter-boilerplate.git my-indexer
-cd my-indexer
+git clone https://github.com/flair-sdk/starter-boilerplate.git aave-position-borrow-rate-notification
+cd aave-position-borrow-rate-notification
 ```
 
 <br /> 
@@ -43,7 +41,7 @@ pnpm flair auth
 
 `config.dev.json` and `config.prod.json` are sample configs for `dev` and `prod` clusters.
 
-Set a globally unique namespace in each config file (recommended to use `{ORG_NAME}-{ENV}`; e.g `sushiswap-dev` or `sushiswap-prod`) and then run:
+Set a globally unique namespace in each config file (recommended to use `{ORG_NAME}-{ENV}`; e.g `aave-position-borrow-rate-notification-dev` or `aave-position-borrow-rate-notification-prod`) and then run:
 
 ```bash
 # Setting configs for dev testing
@@ -61,23 +59,18 @@ pnpm generate-and-deploy
 ```
 
 <br />
-5️⃣ Backfill certain contracts or block ranges:
+5️⃣ Backfill block ranges or certain time interval:
+
+you can backfill for a specific block number, if you have certain events you wanna test with:
 
 ```bash
-# Index last recent 10,000 blocks of a contract like this:
-pnpm flair backfill --chain 1 --address 0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc -d backward --max-blocks 10000
-```
-
-Or you can backfill for a specific block number, if you have certain events you wanna test with:
-
-```bash
-pnpm flair backfill --chain 1 -b 17998797
+pnpm flair backfill --chain 1 -b 17998797 --emit evm-blocks
 ```
 
 Or backfill for the recent data in the last X minutes:
 
 ```bash
-pnpm flair backfill --chain 1 --min-timestamp="5 mins ago" -d backward
+pnpm flair backfill --chain 1 --min-timestamp="5 mins ago" -d backward --emit evm-blocks
 ```
 
 <br />
@@ -85,9 +78,8 @@ pnpm flair backfill --chain 1 --min-timestamp="5 mins ago" -d backward
 
 ```bash
 pnpm flair logs --full -tag Level=warn
-pnpm flair logs --full -tag TransactionHash=0xXXXXX
-pnpm flair logs --full -tag ProcessorId=swap-events
-pnpm flair logs --full -tag ProcessorId=swap-events --watch
+pnpm flair logs --full -tag ProcessorId=aave-positions
+pnpm flair logs --full -tag ProcessorId=aave-positions --watch
 ```
 
 ## Examples
@@ -95,7 +87,7 @@ pnpm flair logs --full -tag ProcessorId=swap-events --watch
 #### Get all entity types total count
 
 - Method: `POST`
-- Endpoint: [https://graph.flair.dev/](https://graph.flair.dev/)
+- Endpoint: [https://graph.flair.dev/](https://api.flair.dev/)
 - Headers: `X-API-KEY: <your-api-key>`
 - Body:
 
@@ -108,7 +100,7 @@ query {
     FROM
         entities
     WHERE
-        namespace = 'vektor-finance'
+        namespace = 'aave-position-borrow-rate-notification-dev'
     """
   ) {
     stats {

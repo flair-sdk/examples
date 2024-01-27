@@ -7,7 +7,7 @@ Explore real-world usage of Flair indexing primitives for various use-cases.
 * [Aggregate protocol fees in USD across multiple chains](./aggregate-protocol-fees-in-usd/README.md)
 * [Calculate "Health Factor" of positions with contract factory tracking](./health-factor-with-factory-tracking/README.md)
 * [Index Uniswap v2 swaps with USD price for all addresses](./uniswap-v2-events-from-all-contracts-with-usd-price/README.md)
-* [Index and notify Aave cumulative metrics (e.g totalBorrows) and aggregations (e.g borrow rate change)](./aave-position-borrow-rate-notification/README.md)
+* [Index and notify Aave cumulative metrics (e.g totalBorrows) and aggregations (e.g borrow rate change) per block](./aave-position-borrow-rate-notification/README.md)
 
 ### NFT
 
