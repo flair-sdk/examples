@@ -1,4 +1,4 @@
-# Index and notify Aave cumulative metrics (e.g totalBorrows) and aggregations (e.g borrow rate change) per block
+# Track and notify Aave position total borrows and borrow rate change per block
 
 This repository provides scripts, processors and aggregations to index and notify cumulative metrics, such as totalBorrows, and aggregations, such as borrow rate change, for Aave positions (v2 and v3). The solution is designed to gather relevant data and send notifications for informed decision-making based on the aggregated metrics.
 
