@@ -123,3 +123,8 @@ The current flow covers a very basic indexing use-case. For more advanced ones, 
 
 **Q:** How do I enable/disable real-time ingestion for indexer? <br />
 **A:** For each indexer defined in `config.json`, you can enable/disable it via the `enabled: true/false` flag. Remember to run `pnpm deploy` for the changes to apply on the cluster. <br/><br />
+
+**Q:** How can this scale to many more positions? <br />
+**A:** For up to 100 positions the current approach can work, for up to 10k positions you can take advantage of the scheduled worker feature, and for 1m+ positions you need to change the approach instead of fetching data for each position, index the Aave protocol and use the aggregations feature of Flair. Reach out to our team if you need to scale this solution.. <br/><br />
+
+
