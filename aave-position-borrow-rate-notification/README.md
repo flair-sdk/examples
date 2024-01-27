@@ -15,7 +15,7 @@ This repository provides scripts, processors and aggregations to index and notif
 ## Table of Contents
 
 - [🏁 Getting Started](#getting-started)
-- [💎 Examples](#examples)
+- [💎 Usage](#usage)
 - [🤔 FAQ](#faq)
 
 ## Getting Started
@@ -81,7 +81,7 @@ pnpm flair logs --full -tag ProcessorId=aave-positions
 pnpm flair logs --full -tag ProcessorId=aave-positions --watch
 ```
 
-## Examples
+## Usage
 
 #### Query indexed entity types
 
