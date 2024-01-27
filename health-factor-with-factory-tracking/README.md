@@ -83,6 +83,7 @@ pnpm flair logs --full -tag ProcessorId=swap-events --watch
 
 <br />
 7️⃣ Explore the data in playground:
+<br />
 
 Visit the [playground](https://api.flair.build) and run the following query in Examples section.
 

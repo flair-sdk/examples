@@ -6,8 +6,8 @@ specifiers:
   '@types/prettier': ^3.0.0
   aws-sdk: ^2.1450.0
   ethers: ^5.7.2
-  flair-cli: ^1.25.4
-  flair-sdk: ^1.3.4
+  flair-cli: ^1.26.1
+  flair-sdk: ^1.4.0
   got: ^11.8.2
   mustache: ^4.2.0
   prettier: ^3.0.3
@@ -18,13 +18,13 @@ dependencies:
   '@flair-sdk/contracts': 2.27.0_ethers@5.7.2
   aws-sdk: 2.1450.0
   ethers: 5.7.2
-  flair-sdk: 1.3.4_typescript@5.2.2
+  flair-sdk: 1.4.0_typescript@5.2.2
   got: 11.8.6
 
 devDependencies:
   '@types/node': 20.5.6
   '@types/prettier': 3.0.0
-  flair-cli: 1.25.4_pgrhsryyof7enmmjnqsueffn4e
+  flair-cli: 1.26.1_pgrhsryyof7enmmjnqsueffn4e
   mustache: 4.2.0
   prettier: 3.0.3
   rome: 12.1.3
@@ -1816,8 +1816,8 @@ packages:
       to-regex-range: 5.0.1
     dev: true
 
-  /flair-cli/1.25.4_pgrhsryyof7enmmjnqsueffn4e:
-    resolution: {integrity: sha512-Y2rtYi9pe+jMsu9lOfhgHnmhXBUqVXeJdSDfF5lBskrYKW5mqcZqA17RYStff/AcEMst/Nae48ygfyf68uQcKQ==}
+  /flair-cli/1.26.1_pgrhsryyof7enmmjnqsueffn4e:
+    resolution: {integrity: sha512-yeQZtS0eSRIRAxm0pOyJM8pa3DY5PDHwJBsA4BJijK2yCwheQm76lJlt/UV9Pd+vukh+/jGVhyORqMrOgWBMYA==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
@@ -1871,8 +1871,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /flair-sdk/1.3.4_typescript@5.2.2:
-    resolution: {integrity: sha512-JHzKqn7pXql+4GSuh2GxP1gNPvsMmoClE3QBHEFh1Sw+ARVXz4C6V7jjfWS3TT0rK/G8sIXoOSVjIFgAvk/HnA==}
+  /flair-sdk/1.4.0_typescript@5.2.2:
+    resolution: {integrity: sha512-INktmIQoXpL53OKzW4UmAdhBx064l9RcsYL2M3Du50ZlHVg3AzEn2oIyCzu04jbqBLU641Vlse57Psuv4qO7TQ==}
     peerDependencies:
       typescript: '>=5.0.4'
     peerDependenciesMeta:
