@@ -7,7 +7,7 @@ This repository provides scripts, processors and aggregations to index and notif
 
 * **Aggregations:** Aggregated metrics, such as borrow rate change, are computed to provide a comprehensive view of the dynamics within the Aave protocol.
 
-* **Notification:** Notifications are sent to any remite endpoint (e.g. Zapier webhook) to enable real-time awareness and response to changes in the Aave positions.
+* **Notification:** Notifications are sent to any remote endpoint (e.g. Zapier webhook) to enable real-time awareness and response to changes in the Aave positions.
 
 * **Database:** All the historical and real-time new data can be written to your own database (Postgres, MongoDB, DynamoDB, etc.)
 
