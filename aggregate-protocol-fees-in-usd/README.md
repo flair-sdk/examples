@@ -80,12 +80,18 @@ pnpm flair logs --full -tag ProcessorId=swap-events
 pnpm flair logs --full -tag ProcessorId=swap-events --watch
 ```
 
+<br />
+7️⃣ Explore the data in playground:
+<br />
+
+Visit the [playground](https://api.flair.build) and run the following query in Examples section.
+
 ## Examples
 
 ### All entities order by latest at top
 
 - Method: `POST`
-- Endpoint: [https://graph.flair.dev/](https://graph.flair.dev/)
+- Endpoint: [https://api.flair.build/](https://api.flair.build/)
 - Headers: `X-API-KEY: <your-api-key>`
 - Body:
 
@@ -115,7 +121,7 @@ query {
 ### Total gas fees and insurance fees collected
 
 - Method: `POST`
-- Endpoint: [https://graph.flair.dev/](https://graph.flair.dev/)
+- Endpoint: [https://api.flair.build/](https://api.flair.build/)
 - Headers: `X-API-KEY: <your-api-key>`
 - Body:
 
@@ -155,7 +161,7 @@ query {
 ### Total gas fees and insurance fees collected (with token symbol)
 
 - Method: `POST`
-- Endpoint: [https://graph.flair.dev/](https://graph.flair.dev/)
+- Endpoint: [https://api.flair.build/](https://api.flair.build/)
 - Headers: `X-API-KEY: <your-api-key>`
 - Body:
 
@@ -200,7 +206,7 @@ query {
 ### Total number of entities by type and chain
 
 - Method: `POST`
-- Endpoint: [https://graph.flair.dev/](https://graph.flair.dev/)
+- Endpoint: [https://api.flair.build/](https://api.flair.build/)
 - Headers: `X-API-KEY: <your-api-key>`
 - Body:
 
@@ -232,7 +238,7 @@ query {
 ### Total fees collected grouped by chain
 
 - Method: `POST`
-- Endpoint: [https://graph.flair.dev/](https://graph.flair.dev/)
+- Endpoint: [https://api.flair.build/](https://api.flair.build/)
 - Headers: `X-API-KEY: <your-api-key>`
 - Body:
 
@@ -263,7 +269,7 @@ query {
 ### Total fees collected grouped by token address
 
 - Method: `POST`
-- Endpoint: [https://graph.flair.dev/](https://graph.flair.dev/)
+- Endpoint: [https://api.flair.build/](https://api.flair.build/)
 - Headers: `X-API-KEY: <your-api-key>`
 - Body:
 
@@ -295,7 +301,7 @@ query {
 ### Tokens without USD price
 
 - Method: `POST`
-- Endpoint: [https://graph.flair.dev/](https://graph.flair.dev/)
+- Endpoint: [https://api.flair.build/](https://api.flair.build/)
 - Headers: `X-API-KEY: <your-api-key>`
 - Body:
 

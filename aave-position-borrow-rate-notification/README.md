@@ -81,12 +81,18 @@ pnpm flair logs --full -tag ProcessorId=aave-positions
 pnpm flair logs --full -tag ProcessorId=aave-positions --watch
 ```
 
-## Usage
+<br />
+7️⃣ Explore the data in playground:
+<br />
+
+Visit the [playground](https://api.flair.build) and run the following query in Examples section.
+
+## Examples
 
 #### Query indexed entity types
 
 - Method: `POST`
-- Endpoint: [https://api.flair.dev/](https://api.flair.dev/)
+- Endpoint: [https://api.flair.build/](https://api.flair.build/)
 - Headers: `X-API-KEY: <your-api-key>`
 - Body:
 
