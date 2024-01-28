@@ -11,7 +11,7 @@ Explore real-world usage of Flair indexing primitives for various use-cases.
 
 * [Aggregate protocol fees in USD across multiple chains](./aggregate-protocol-fees-in-usd)
 * [Calculate "Health Factor" of positions with contract factory tracking](./health-factor-with-factory-tracking)
-* [Index Uniswap v2 swaps with USD price for all addresses](./uniswap-v2-events-from-all-contracts-with-usd-price)
+* [Track Uniswap v2 swaps with USD price for all addresses](./uniswap-v2-events-from-all-contracts-with-usd-price)
 * [Track and notify Aave position total borrows and borrow rate change per block](./aave-position-borrow-rate-notification)
 
 ### NFT
