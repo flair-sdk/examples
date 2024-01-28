@@ -1,10 +1,6 @@
 node_modules
-
 manifest.yml
 config.json
-
 dist
-
 .flair
-
 .DS_Store

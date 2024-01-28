@@ -49,14 +49,6 @@ enrichers:
     inputSql: ./src/aggregation/aave-notifications/input.sql
     handler: ./src/aggregation/aave-notifications/handler.ts
 
-  - id: database-historical-sync
-    engine: flink
-    inputSql: ./src/database/batch.sql
-
-  - id: database-realtime-sync
-    engine: flink
-    inputSql: ./src/database/streaming.sql
-
 workers:
   - schedule: rate(60 minutes)
     enabled: false
