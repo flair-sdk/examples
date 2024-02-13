@@ -12,6 +12,11 @@ CREATE TABLE source_position (
     `localIndex` BIGINT,
     `borrowRate` INT,
     `positionAddress` STRING,
+    `healthFactor` STRING,
+    `isInIsolationMode` STRING,
+    `totalCollateralUSD` STRING,
+    `totalBorrowsUSD` STRING,
+    `netWorthUSD` STRING,
     PRIMARY KEY (`entityId`) NOT ENFORCED
 ) PARTITIONED BY (`entityId`) WITH (
     'connector' = 'database',
@@ -36,6 +41,11 @@ CREATE TABLE sink_position (
     `localIndex` BIGINT,
     `borrowRate` INT,
     `positionAddress` STRING,
+    `healthFactor` STRING,
+    `isInIsolationMode` STRING,
+    `totalCollateralUSD` STRING,
+    `totalBorrowsUSD` STRING,
+    `netWorthUSD` STRING,
     PRIMARY KEY (`entityId`) NOT ENFORCED
 ) WITH (
    'connector' = 'jdbc',
