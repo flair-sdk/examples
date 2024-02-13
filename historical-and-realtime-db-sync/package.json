@@ -1,7 +1,7 @@
 {
-  "name": "@flair-sdk/aave-indexing-example",
+  "name": "@flair-sdk/db-syncing-example",
   "version": "1.0.0",
-  "description": "Indexing components and scripts for Aave",
+  "description": "Indexing components and scripts for DB syncing",
   "main": "manifest.yml",
   "repository": "git@github.com:flair-sdk/starter-boilerplate.git",
   "author": "gm@flair.dev",
