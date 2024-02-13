@@ -4,6 +4,7 @@ Explore real-world usage of Flair indexing primitives for various use-cases.
 
 ### Generic
 
+* [Historical and real-time database syncing](./historical-and-realtime-db-sync)
 * [ENS simple domain reversals indexer](./ens-simple-name-reversal)
 * [Index all transactions (including internal calls) with revert reason for failures](./transactions-with-internals-and-reverts)
 

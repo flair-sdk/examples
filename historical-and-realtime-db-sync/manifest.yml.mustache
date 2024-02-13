@@ -1,0 +1,68 @@
+manifest: 1.2.0
+
+defaultLogLevel: INFO
+
+cluster:
+  id: {{ cluster }}
+  size: small
+namespace: {{ namespace }}
+
+filterGroups:
+  - id: default
+    updateStrategy: preserve
+    description: This default filter group is used for all indexers to capture
+      contract addresses you care about.
+    addresses:
+      - fromFile: ./contracts.csv
+
+indexers:
+  {{#indexers}}
+  - chainId: {{chainId}}
+    enabled: {{enabled}}
+    ingestionFilterGroup: {{ingestionFilterGroup}}
+    processingFilterGroup: {{processingFilterGroup}}
+    logsListenerEnabled: {{logsListenerEnabled}}
+    blocksListenerEnabled: {{blocksListenerEnabled}}
+    emitEvents: {{emitEvents}}
+    emitBlocks: {{emitBlocks}}
+    emitTransactions: {{emitTransactions}}
+    emitInternalTransactions: {{emitInternalTransactions}}
+    resolveRevertReason: {{resolveRevertReason}}
+    sources:
+    {{#sources}}
+      - endpoint: {{{.}}}
+    {{/sources}}
+  {{/indexers}}
+
+processors:
+  - id: aave-positions
+    type: block
+    handler: src/processors/aave-positions/handler.ts
+
+enrichers:
+  - id: database-historical-sync-mysql-position
+    engine: flink 
+    inputSql: ./src/database/mysql/batch.position.sql
+
+  - id: database-realtime-mysql-sync
+    engine: flink
+    parallelism: 4
+    inputSql: ./src/database/mysql/streaming.sql
+
+  - id: database-historical-sync-postgres-position
+    engine: flink 
+    inputSql: ./src/database/postgres/batch.position.sql
+
+  - id: database-realtime-postgres-sync
+    engine: flink
+    parallelism: 4
+    inputSql: ./src/database/postgres/streaming.sql
+
+  - id: database-historical-sync-mongodb-position
+    engine: flink 
+    inputSql: ./src/database/mongodb/batch.position.sql
+
+  - id: database-realtime-mongodb-sync
+    engine: flink
+    parallelism: 4
+    inputSql: ./src/database/mongodb/streaming.sql

@@ -1,0 +1,21 @@
+CREATE TABLE Position (
+    entityId VARCHAR(255),
+    entityUpdatedAt BIGINT,
+    horizon VARCHAR(255),
+    blockNumber BIGINT,
+    blockTimestamp BIGINT,
+    forkIndex BIGINT,
+    transactionIndex BIGINT,
+    logIndex BIGINT,
+    localIndex BIGINT,
+    borrowRate INT,
+    positionAddress VARCHAR(255),
+    healthFactor VARCHAR(255),
+    isInIsolationMode VARCHAR(255),
+    totalCollateralUSD VARCHAR(255),
+    totalBorrowsUSD VARCHAR(255),
+    netWorthUSD VARCHAR(255),
+    PRIMARY KEY (`entityId`),
+    INDEX `idx_blockNumber` (`blockNumber`),
+    INDEX `idx_blockTimestamp` (`blockTimestamp`)
+);
