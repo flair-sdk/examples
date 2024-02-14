@@ -49,7 +49,7 @@ CREATE TABLE sink_position (
     PRIMARY KEY (`entityId`) NOT ENFORCED
 ) WITH (
    'connector' = 'jdbc',
-    'url' = 'jdbc:postgressql://DB_HOST_HERE:PORT_HERE/DB_NAME_HERE',
+    'url' = 'jdbc:postgresql://DB_HOST_HERE:PORT_HERE/DB_NAME_HERE',
     'table-name' = 'Position',
     'username' = 'USERNAME_HERE',
     'password' = '{{ secret("postgres.password") }}',
