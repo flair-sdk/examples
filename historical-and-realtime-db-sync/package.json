@@ -1,7 +1,7 @@
 {
-  "name": "@flair-sdk/transactions-with-internals-and-reverts",
+  "name": "@flair-sdk/db-syncing-example",
   "version": "1.0.0",
-  "description": "Index EVM transactions and internal calls with revert reasons",
+  "description": "Indexing components and scripts for DB syncing",
   "main": "manifest.yml",
   "repository": "git@github.com:flair-sdk/starter-boilerplate.git",
   "author": "gm@flair.dev",

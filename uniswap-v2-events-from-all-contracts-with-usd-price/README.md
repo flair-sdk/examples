@@ -1,4 +1,4 @@
-# Example: indexing Uniswap v2 swaps with USD price for all contracts across all chains
+# Example: Track Uniswap v2 swaps with USD price for all contracts across all chains
 
 This example demonstrates how to index Swap events from a Uniswap fork on all chains and all contracts with USD price of the tokens swapped at the time of the swap.
 

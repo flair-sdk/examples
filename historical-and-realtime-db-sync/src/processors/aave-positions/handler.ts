@@ -58,16 +58,19 @@ export async function processBlock({ block, horizon }: any) {
       userEmodeCategoryId: userReserves.userEmodeCategoryId,
     });
 
-    const { userReservesData, ...restUserSummary } = userSummary;
+    const { healthFactor, isInIsolationMode, totalCollateralUSD, totalBorrowsUSD, netWorthUSD } = userSummary;
     
     await database.upsert({
-      entityType: 'AavePositionSnapshot',
+      entityType: 'Position',
       entityId: `${block.chainId}-${positionAddress}-${block.number}`,
       blockTimestamp: block.timestamp,
       horizon,
       positionAddress,
-      
-      ...restUserSummary,
+      healthFactor,
+      isInIsolationMode,
+      totalCollateralUSD,
+      totalBorrowsUSD,
+      netWorthUSD
     });
   }
 };

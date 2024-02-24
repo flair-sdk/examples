@@ -37,10 +37,8 @@ export async function handleInput({ data }: {
         );
     }
 
-    const zapierSlackWebhookUrl = 'https://hooks.zapier.com/hooks/catch/1132193/3qb9xu1/';
-    const zapierDiscordWebhookUrl = 'https://hooks.zapier.com/hooks/catch/1132193/3qbcoho/';
-    const zapierEmailWebhookUrl = 'https://hooks.zapier.com/hooks/catch/1132193/3q2t26l/';
-    const webhookUrls = [zapierSlackWebhookUrl, zapierDiscordWebhookUrl, zapierEmailWebhookUrl];
+    const zapierWebhookUrl = 'REPLACE_ME';
+    const webhookUrls = [zapierWebhookUrl];
 
     const requestBody = {
         positionAddress: data?.positionAddress,

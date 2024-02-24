@@ -48,6 +48,8 @@ cp config.prod.json config.json
 pnpm generate-and-deploy
 ```
 
+> For the first time it'll take few minutes to create your cluster components.
+
 <br />
 5️⃣ Backfill certain contracts or block ranges:
 
@@ -59,13 +61,13 @@ pnpm flair backfill --chain 1 --address 0x5FF137D4b0FDCD49DcA30c7CF57E578a026d27
 Or you can backfill for a specific block number, if you have certain events you wanna test with:
 
 ```bash
-pnpm flair backfill --chain 1 -b 17998797
+pnpm flair backfill --chain 1 -b 17998797 --emit evm-transactions
 ```
 
 Or backfill for the recent data in the last X minutes:
 
 ```bash
-pnpm flair backfill --chain 1 --min-timestamp="5 mins ago" -d backward
+pnpm flair backfill --chain 1 --min-timestamp="5 mins ago" -d backward --emit evm-transactions
 ```
 
 <br />

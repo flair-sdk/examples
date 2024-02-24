@@ -40,20 +40,29 @@ processors:
     handler: src/processors/aave-positions/handler.ts
 
 enrichers:
-  - id: aave-positions
+  - id: database-historical-sync-mysql-position
+    engine: flink 
+    inputSql: ./src/database/mysql/batch.position.sql
+
+  - id: database-realtime-mysql-sync
     engine: flink
-    inputSql: ./src/aggregation/aave-positions/batch.sql
+    parallelism: 4
+    inputSql: ./src/database/mysql/streaming.sql
 
-  - id: aave-notifications
-    engine: rockset
-    inputSql: ./src/aggregation/aave-notifications/input.sql
-    handler: ./src/aggregation/aave-notifications/handler.ts
+  - id: database-historical-sync-postgres-position
+    engine: flink 
+    inputSql: ./src/database/postgres/batch.position.sql
 
-workers:
-  - schedule: rate(60 minutes)
-    enabled: false
-    enricher: aave-positions
+  - id: database-realtime-postgres-sync
+    engine: flink
+    parallelism: 4
+    inputSql: ./src/database/postgres/streaming.sql
 
-  - schedule: rate(60 minutes)
-    enabled: false
-    enricher: aave-notifications
+  - id: database-historical-sync-mongodb-position
+    engine: flink 
+    inputSql: ./src/database/mongodb/batch.position.sql
+
+  - id: database-realtime-mongodb-sync
+    engine: flink
+    parallelism: 4
+    inputSql: ./src/database/mongodb/streaming.sql
