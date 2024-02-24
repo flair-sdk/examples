@@ -1,3 +1,4 @@
 "chainId","address","label"
 "137","0x0576a174d229e3cfa37253523e645a78a0c91b57","Blocknative EntryPoint"
 "*","0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789","infinitism EntryPoint (cross-chain address)"
+"*","0x0000000071727De22E5E9d8BAf0edAc6f37da032","EntryPoint v0.7 official erc4337"
