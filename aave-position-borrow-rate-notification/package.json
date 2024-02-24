@@ -19,7 +19,7 @@
   "devDependencies": {
     "@types/node": "^20.3.2",
     "@types/prettier": "^3.0.0",
-    "flair-cli": "^1.26.1",
+    "flair-cli": "^1.30.0",
     "mustache": "^4.2.0",
     "prettier": "^3.0.3",
     "rome": "^12.1.3",
@@ -33,7 +33,7 @@
     "axios": "^1.6.7",
     "dayjs": "^1.11.10",
     "ethers": "^5.7.1",
-    "flair-sdk": "^1.4.0",
+    "flair-sdk": "^1.5.0",
     "install": "^0.13.0",
     "node-fetch": "^2.7.0",
     "npm": "^10.3.0",

@@ -5,7 +5,7 @@ defaultLogLevel: INFO
 cluster:
   id: dev
   size: small
-namespace: aave-indexing-example-dev
+namespace: aave-position-borrow-rate-notification-dev
 
 filterGroups:
   - id: default

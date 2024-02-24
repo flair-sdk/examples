@@ -6,6 +6,7 @@ Explore real-world usage of Flair indexing primitives for various use-cases.
 
 * [ENS simple domain reversals indexer](./ens-simple-name-reversal)
 * [Index all transactions (including internal calls) with revert reason for failures](./transactions-with-internals-and-reverts)
+* [ERC-4337 (Account Abstraction) entry point and factory events](./erc4337-simple-events)
 
 ### DeFi
 
