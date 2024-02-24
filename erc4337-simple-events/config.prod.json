@@ -1,6 +1,6 @@
 {
   "cluster": "prod",
-  "namespace": "mydb-namespace-prod",
+  "namespace": "erc4337",
   "indexers": [
     {
       "chainId": 1,

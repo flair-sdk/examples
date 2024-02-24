@@ -1,6 +1,6 @@
 {
   "cluster": "dev",
-  "namespace": "aave-position-borrow-rate-notification-dev",
+  "namespace": "mydb-namespace-dev",
   "indexers": [
     {
       "chainId": 1,

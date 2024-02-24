@@ -1,10 +1,10 @@
 {
-  "cluster": "prod",
-  "namespace": "mydb-namespace-prod",
+  "cluster": "dev",
+  "namespace": "erc4337-dev",
   "indexers": [
     {
       "chainId": 1,
-      "enabled": false,
+      "enabled": true,
       "ingestionFilterGroup": "default",
       "processingFilterGroup": "default",
       "sources": [
@@ -14,7 +14,7 @@
     },
     {
       "chainId": 137,
-      "enabled": false,
+      "enabled": true,
       "ingestionFilterGroup": "default",
       "processingFilterGroup": "default",
       "sources": [

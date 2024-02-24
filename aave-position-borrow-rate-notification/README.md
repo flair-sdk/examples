@@ -23,7 +23,7 @@ This repository provides scripts, processors and aggregations to index and notif
 1️⃣ Clone this repo:
 
 ```bash
-git clone https://github.com/flair-sdk/starter-boilerplate.git aave-position-borrow-rate-notification
+git clone https://github.com/flair-sdk/examples.git examples
 cd aave-position-borrow-rate-notification
 ```
 
