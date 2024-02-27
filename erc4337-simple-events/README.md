@@ -1,4 +1,4 @@
-# ERC-4337 (Account Abstraction) Events Indexing
+# ERC-4337 (Account Abstraction) events indexing on any EVM chain
 
 This repository is a starting point of indexing ERC4337 for any chain, entry point and account factory. You can customize the handler logic, chains and addresses as needed.
 

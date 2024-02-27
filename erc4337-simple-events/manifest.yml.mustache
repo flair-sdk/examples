@@ -1,6 +1,6 @@
 manifest: 1.2.0
 
-defaultLogLevel: INFO
+defaultLogLevel: WARN
 
 cluster:
   id: {{ cluster }}
@@ -8,10 +8,12 @@ cluster:
 namespace: {{ namespace }}
 
 filterGroups:
-  - id: default
-    updateStrategy: preserve
-    description: This default filter group is used for all indexers to capture
-      contract addresses you care about.
+  - id: topics
+    updateStrategy: replace
+    topics:
+      - fromFile: src/abis/EntryPoint.json
+  - id: addresses
+    updateStrategy: replace
     addresses:
       - fromFile: ./contracts.csv
 
@@ -19,8 +21,8 @@ indexers:
   {{#indexers}}
   - chainId: {{chainId}}
     enabled: {{enabled}}
-    ingestionFilterGroup: {{ingestionFilterGroup}}
-    processingFilterGroup: {{processingFilterGroup}}
+    ingestionFilterGroup: topics
+    processingFilterGroup: addresses
     sources:
     {{#sources}}
       - endpoint: {{{.}}}

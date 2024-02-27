@@ -5,8 +5,6 @@
     {
       "chainId": 1,
       "enabled": false,
-      "ingestionFilterGroup": "default",
-      "processingFilterGroup": "default",
       "sources": [
         "wss://chain-1.rpc.internal.flair.build",
         "https://chain-1.rpc.internal.flair.build"
@@ -15,8 +13,6 @@
     {
       "chainId": 137,
       "enabled": false,
-      "ingestionFilterGroup": "default",
-      "processingFilterGroup": "default",
       "sources": [
         "wss://chain-137.rpc.internal.flair.build",
         "https://chain-137.rpc.internal.flair.build"

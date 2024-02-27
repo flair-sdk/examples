@@ -9,7 +9,7 @@ specifiers:
   '@types/prettier': ^3.0.0
   dayjs: ^1.11.10
   ethers: ^5.7.1
-  flair-cli: ^1.30.0
+  flair-cli: ^1.30.2
   flair-sdk: ^1.5.0
   install: ^0.13.0
   mustache: ^4.2.0
@@ -36,7 +36,7 @@ dependencies:
 devDependencies:
   '@types/node': 20.11.7
   '@types/prettier': 3.0.0
-  flair-cli: 1.30.0_7gmzhwwsvmtvve76kacdevgxiq
+  flair-cli: 1.30.2_7gmzhwwsvmtvve76kacdevgxiq
   mustache: 4.2.0
   prettier: 3.2.4
   rome: 12.1.3
@@ -1671,8 +1671,8 @@ packages:
       to-regex-range: 5.0.1
     dev: true
 
-  /flair-cli/1.30.0_7gmzhwwsvmtvve76kacdevgxiq:
-    resolution: {integrity: sha512-kKn7WsTGp8B6cLRE0iqzilj+j0pUC+GbwaB8n5fofacILwjx/QBubigoTP/m6gxtkAINK5rIRzz27/UhpowBoQ==}
+  /flair-cli/1.30.2_7gmzhwwsvmtvve76kacdevgxiq:
+    resolution: {integrity: sha512-otiLBEucu9/4sN0zccnYFsgewe5GQ1eAN58ya8JxwewBJboMDITMmQZxuVEJYdgGJMmlYdgPdv040VufZfjKew==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
