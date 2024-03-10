@@ -18,22 +18,22 @@ export async function persistEvent(event: EventHandlerInput, transaction, token0
       fetchUsdPrice({
         event,
         token: token0,
-        amount: event.parsed.args?.amount0In,
+        amount: event.parsed?.args.amount0In,
       }),
       fetchUsdPrice({
         event,
         token: token1,
-        amount: event.parsed.args?.amount1In,
+        amount: event.parsed?.args.amount1In,
       }),
       fetchUsdPrice({
         event,
         token: token0,
-        amount: event.parsed.args?.amount0Out,
+        amount: event.parsed?.args.amount0Out,
       }),
       fetchUsdPrice({
         event,
         token: token1,
-        amount: event.parsed.args?.amount1Out,
+        amount: event.parsed?.args.amount1Out,
       }),
     ]) as any;
 
@@ -59,7 +59,6 @@ export async function persistEvent(event: EventHandlerInput, transaction, token0
     chainId: event.chainId,
     contractAddress: event.log.address,
     blockTimestamp: Number(event.blockTimestamp),
-    removed: Boolean(event.log.removed),
 
     txFrom: transaction.from,
     txTo: transaction.to,
@@ -76,7 +75,7 @@ export async function persistEvent(event: EventHandlerInput, transaction, token0
     hourBucket,
 
     // Save all event args as-is
-    ...event.parsed.args,
+    ...event.parsed?.args,
 
     // Store USD value
     amountUsd,
@@ -85,7 +84,7 @@ export async function persistEvent(event: EventHandlerInput, transaction, token0
   await database.upsert({
     // Entity type is used to group entities together.
     // Here we're creating 1 entity per event (Swap, etc).
-    entityType: event.parsed.name as string,
+    entityType: event.parsed?.name as string,
 
     // Unique ID for this entity.
     //
