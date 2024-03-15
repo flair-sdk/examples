@@ -16,14 +16,13 @@
   },
   "devDependencies": {
     "@types/node": "^20.3.2",
-    "@types/prettier": "^3.0.0",
-    "flair-cli": "^1.31.1",
+    "flair-cli": "^1.31.6",
     "mustache": "^4.2.0",
     "prettier": "^3.0.3",
     "rome": "^12.1.3",
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "flair-sdk": "^1.5.0"
+    "flair-sdk": "^1.5.4"
   }
 }

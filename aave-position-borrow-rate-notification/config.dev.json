@@ -12,7 +12,7 @@
       "emitBlocks": true,
       "emitEvents": false,
       "emitTransactions": false,
-      "emitInternalTransactions": false,
+      "emitTraces": false,
       "resolveRevertReason": false,
       "sources": [
         "wss://chain-1.rpc.internal.flair.build",
