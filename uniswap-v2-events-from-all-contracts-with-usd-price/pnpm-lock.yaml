@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  flair-cli: ^1.32.0
+  flair-cli: ^1.32.4
   flair-sdk: ^1.5.4
   mustache: ^4.2.0
   prettier: ^3.0.3
@@ -12,7 +12,7 @@ dependencies:
   flair-sdk: 1.5.4_typescript@5.2.2
 
 devDependencies:
-  flair-cli: 1.32.0_typescript@5.2.2
+  flair-cli: 1.32.4_typescript@5.2.2
   mustache: 4.2.0
   prettier: 3.0.3
   rome: 12.1.3
@@ -1617,8 +1617,8 @@ packages:
       to-regex-range: 5.0.1
     dev: true
 
-  /flair-cli/1.32.0_typescript@5.2.2:
-    resolution: {integrity: sha512-wcalORBQnbQMPB58uBs6qxToTd8DnaRzwTrqoAPOkGVfrikZd2VBuys2JYnhn7QXghHtQ987WcviO+Ykyl9gWw==}
+  /flair-cli/1.32.4_typescript@5.2.2:
+    resolution: {integrity: sha512-GYOZY5rkeiIoZ+jk7m4/Fr8ZAd3FopfVvY7O3IBpnKkEu4TE5d5FCTwv8I7/6QZMLkKXwhw5C2B25Qfc2yOEhg==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
