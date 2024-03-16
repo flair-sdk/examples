@@ -15,7 +15,7 @@
     "generate-and-deploy": "pnpm run generate && flair deploy"
   },
   "devDependencies": {
-    "flair-cli": "^1.32.4",
+    "flair-cli": "^1.32.5",
     "mustache": "^4.2.0",
     "prettier": "^3.0.3",
     "rome": "^12.1.3",
