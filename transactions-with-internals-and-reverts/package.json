@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.3.2",
-    "flair-cli": "^1.41.1",
+    "flair-cli": "^1.41.2",
     "mustache": "^4.2.0",
     "prettier": "^3.0.3",
     "rome": "^12.1.3",
